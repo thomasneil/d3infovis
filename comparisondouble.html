@@ -1,0 +1,2818 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <meta charset="utf-8">
+        <title>d3 Updating Bar Chart With Dropdown</title>
+        <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <style>
+        body {
+            font: 10px sans-serif;
+        }
+        select {
+            display: block;
+        }
+        .bar {
+            fill: #090557;
+            opacity: 0.9;
+        }
+
+
+
+                .bar2 {
+            fill: #6E1317;
+            opacity: 0.9;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #440000;
+            stroke-width:1;
+            /*shape-rendering: crispEdges;*/
+        }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+
+    <div class="row">
+
+<div class="col-sm">
+State1<select id="State1" onchange="dropdownChange()">
+<option selected="selected" value="Azarbaijan_East">Azarbaijan_East</option><option value="Azarbaijan_West">Azarbaijan_West</option><option value="Ardabil">Ardabil</option><option value="Isfahan">Isfahan</option><option value="Alborz">Alborz</option><option value="Ilam">Ilam</option><option value="Bushehr">Bushehr</option><option value="Tehran">Tehran</option><option value="Chaharmahal_and_Bakhtiari">Chaharmahal_and_Bakhtiari</option><option value="Khorasan_South">Khorasan_South</option><option value="Khorasan_Razavi">Khorasan_Razavi</option><option value="Khorasan_North">Khorasan_North</option><option value="Khuzestan">Khuzestan</option><option value="Zanjan">Zanjan</option><option value="Semnan">Semnan</option><option value="Sistan_and_Baluchestan">Sistan_and_Baluchestan</option><option value="Fars">Fars</option><option value="Qazvin">Qazvin</option><option value="Qom">Qom</option><option value="Kurdistan">Kurdistan</option><option value="Kerman">Kerman</option><option value="Kermanshah">Kermanshah</option><option value="Kohgiluye_and_Boyer-Ahmad">Kohgiluye_and_Boyer-Ahmad</option><option value="Golestan">Golestan</option><option value="Gilan">Gilan</option><option value="Lorestan">Lorestan</option><option value="Mazandaran">Mazandaran</option><option value="Markazi">Markazi</option><option value="Hormozgan">Hormozgan</option><option value="Hamedan">Hamedan</option><option value="Yazd">Yazd</option>
+</select>
+</div>
+<div class="col-sm">
+ State2<select id="State2" onchange="dropdownChange()">
+<option value="Azarbaijan_East">Azarbaijan_East</option><option selected="selected" value="Azarbaijan_West">Azarbaijan_West</option><option value="Ardabil">Ardabil</option><option value="Isfahan">Isfahan</option><option value="Alborz">Alborz</option><option value="Ilam">Ilam</option><option value="Bushehr">Bushehr</option><option value="Tehran">Tehran</option><option value="Chaharmahal_and_Bakhtiari">Chaharmahal_and_Bakhtiari</option><option value="Khorasan_South">Khorasan_South</option><option value="Khorasan_Razavi">Khorasan_Razavi</option><option value="Khorasan_North">Khorasan_North</option><option value="Khuzestan">Khuzestan</option><option value="Zanjan">Zanjan</option><option value="Semnan">Semnan</option><option value="Sistan_and_Baluchestan">Sistan_and_Baluchestan</option><option value="Fars">Fars</option><option value="Qazvin">Qazvin</option><option value="Qom">Qom</option><option value="Kurdistan">Kurdistan</option><option value="Kerman">Kerman</option><option value="Kermanshah">Kermanshah</option><option value="Kohgiluye_and_Boyer-Ahmad">Kohgiluye_and_Boyer-Ahmad</option><option value="Golestan">Golestan</option><option value="Gilan">Gilan</option><option value="Lorestan">Lorestan</option><option value="Mazandaran">Mazandaran</option><option value="Markazi">Markazi</option><option value="Hormozgan">Hormozgan</option><option value="Hamedan">Hamedan</option><option value="Yazd">Yazd</option>
+</select>
+</div>
+
+<div class="col-sm">State3<select id="State3" onchange="dropdownChange()">
+<option value="Azarbaijan_East">Azarbaijan_East</option><option value="Azarbaijan_West">Azarbaijan_West</option><option selected="selected" value="Ardabil">Ardabil</option><option value="Isfahan">Isfahan</option><option value="Alborz">Alborz</option><option value="Ilam">Ilam</option><option value="Bushehr">Bushehr</option><option value="Tehran">Tehran</option><option value="Chaharmahal_and_Bakhtiari">Chaharmahal_and_Bakhtiari</option><option value="Khorasan_South">Khorasan_South</option><option value="Khorasan_Razavi">Khorasan_Razavi</option><option value="Khorasan_North">Khorasan_North</option><option value="Khuzestan">Khuzestan</option><option value="Zanjan">Zanjan</option><option value="Semnan">Semnan</option><option value="Sistan_and_Baluchestan">Sistan_and_Baluchestan</option><option value="Fars">Fars</option><option value="Qazvin">Qazvin</option><option value="Qom">Qom</option><option value="Kurdistan">Kurdistan</option><option value="Kerman">Kerman</option><option value="Kermanshah">Kermanshah</option><option value="Kohgiluye_and_Boyer-Ahmad">Kohgiluye_and_Boyer-Ahmad</option><option value="Golestan">Golestan</option><option value="Gilan">Gilan</option><option value="Lorestan">Lorestan</option><option value="Mazandaran">Mazandaran</option><option value="Markazi">Markazi</option><option value="Hormozgan">Hormozgan</option><option value="Hamedan">Hamedan</option><option value="Yazd">Yazd</option>
+</select>
+</div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm">
+Indicator1
+<select id="indicator" onchange="dropdownChange()">
+<option value="Afghanistan_Female_Nationality">"Afghanistan_Female_Nationality"</option>
+<option value="Afghanistan_Male_Nationality"> "Afghanistan_Male_Nationality"</option>
+<option value="Age_18_to_29"> "Age_18_to_29"</option>
+<option value="Age_30_44"> "Age_30_44"</option>
+<option value="Age_45_59"> "Age_45_59"</option>
+<option selected="selected" value="Age_60_and_More"> "Age_60_and_More"</option>
+<option value="Age_6_and_More"> "Age_6_and_More"</option>
+<option value="Age_Up_to_17"> "Age_Up_to_17"</option>
+<option value="Age_Up_to_5"> "Age_Up_to_5"</option>
+<option value="Area"> "Area"</option>
+<option value="Christian_Female"> "Christian_Female"</option>
+<option value="Christian_Male"> "Christian_Male"</option>
+<option value="Female"> "Female"</option>
+<option value="Female_Age_6_and_More"> "Female_Age_6_and_More"</option>
+<option value="Female_Age_Up_to_5"> "Female_Age_Up_to_5"</option>
+<option value="Hamrah_e_Aval_Registered"> "Hamrah_e_Aval_Registered"</option>
+<option value="Hamrah_e_Aval_Working"> "Hamrah_e_Aval_Working"</option>
+<option value="IranCell_Registered"> "IranCell_Registered"</option>
+<option value="IranCell_Working"> "IranCell_Working"</option>
+<option value="Iran_Female_Nationality"> "Iran_Female_Nationality"</option>
+<option value="Iran_Male_Nationality"> "Iran_Male_Nationality"</option>
+<option value="Iranian"> "Iranian"</option>
+<option value="Iraq_Female_Nationality"> "Iraq_Female_Nationality"</option>
+<option value="Iraq_Male_Nationality"> "Iraq_Male_Nationality"</option>
+<option value="Jew_Female"> "Jew_Female"</option>
+<option value="Jew_Male"> "Jew_Male"</option>
+<option value="LandLine_Registered"> "LandLine_Registered"</option>
+<option value="LandLine_Working"> "LandLine_Working"</option>
+<option value= "Male"> "Male"</option>
+<option value="Male_Age_18_to_29"> "Male_Age_18_to_29"</option>
+<option value="Male_Age_30_44"> "Male_Age_30_44"</option>
+<option value="Male_Age_45_59"> "Male_Age_45_59"</option>
+<option value="Male_Age_60_and_More"> "Male_Age_60_and_More"</option>
+<option value="Male_Age_6_and_More"> "Male_Age_6_and_More"</option>
+<option value="Male_Age_Up_to_17"> "Male_Age_Up_to_17"</option>
+<option value="Male_Age_Up_to_5"> "Male_Age_Up_to_5"</option>
+<option value="Muslim_Female"> "Muslim_Female"</option>
+<option value="Muslim_Male"> "Muslim_Male"</option>
+<option value="Nomad"> "Nomad"</option>
+<option value="Nomad_Families"> "Nomad_Families"</option>
+<option value="Non_Iranian"> "Non_Iranian"</option>
+<option value="Other_Countries_Female_Nationality"> "Other_Countries_Female_Nationality"</option>
+<option value="Other_Countries_Male_Nationality"> "Other_Countries_Male_Nationality"</option>
+<option value="Others_Female"> "Others_Female"</option>
+<option value="Others_Male"> "Others_Male"</option>
+<option value="Pakistan_Female_Nationality"> "Pakistan_Female_Nationality"</option>
+<option value="Pakistan_Male_Nationality"> "Pakistan_Male_Nationality"</option>
+<option value="Population"> "Population"</option>
+<option value="RighTel_Registered"> "RighTel_Registered"</option>
+<option value="RighTel_Working"> "RighTel_Working"</option>
+<option value= "Rural"> "Rural"</option>
+<option value="Rural_Families"> "Rural_Families"</option>
+<option value="Turkey_Female_Nationality"> "Turkey_Female_Nationality"</option>
+<option value="Turkey_Male_Nationality"> "Turkey_Male_Nationality"</option>
+<option value="Unknown_Female"> "Unknown_Female"</option>
+<option value="Unknown_Female_Nationality"> "Unknown_Female_Nationality"</option>
+<option value="Unknown_Nationality_Male"> "Unknown_Nationality_Male"</option>
+<option value="Unknown_Religion_Male"> "Unknown_Religion_Male"</option>
+<option value="Urban"> "Urban"</option>
+<option value="Urban_Families"> "Urban_Families"</option>
+<option value="Zoroaster_Female"> "Zoroaster_Female"</option>
+<option value="Zoroaster_Male"> "Zoroaster_Male"</option>
+</select>
+</div>
+    <div class="col-sm">
+Indicator2
+<select id="indicator2" onchange="dropdownChange()">
+<option value="Afghanistan_Female_Nationality">"Afghanistan_Female_Nationality"</option>
+<option selected="selected" value="Afghanistan_Male_Nationality"> "Afghanistan_Male_Nationality"</option>
+<option value="Age_18_to_29"> "Age_18_to_29"</option>
+<option value="Age_30_44"> "Age_30_44"</option>
+<option value="Age_45_59"> "Age_45_59"</option>
+<option value="Age_60_and_More"> "Age_60_and_More"</option>
+<option value="Age_6_and_More"> "Age_6_and_More"</option>
+<option value="Age_Up_to_17"> "Age_Up_to_17"</option>
+<option selected="selected" value="Age_Up_to_5"> "Age_Up_to_5"</option>
+<option value="Area"> "Area"</option>
+<option value="Christian_Female"> "Christian_Female"</option>
+<option value="Christian_Male"> "Christian_Male"</option>
+<option value="Female"> "Female"</option>
+<option value="Female_Age_6_and_More"> "Female_Age_6_and_More"</option>
+<option value="Female_Age_Up_to_5"> "Female_Age_Up_to_5"</option>
+<option value="Hamrah_e_Aval_Registered"> "Hamrah_e_Aval_Registered"</option>
+<option value="Hamrah_e_Aval_Working"> "Hamrah_e_Aval_Working"</option>
+<option value="IranCell_Registered"> "IranCell_Registered"</option>
+<option value="IranCell_Working"> "IranCell_Working"</option>
+<option value="Iran_Female_Nationality"> "Iran_Female_Nationality"</option>
+<option value="Iran_Male_Nationality"> "Iran_Male_Nationality"</option>
+<option value="Iranian"> "Iranian"</option>
+<option value="Iraq_Female_Nationality"> "Iraq_Female_Nationality"</option>
+<option value="Iraq_Male_Nationality"> "Iraq_Male_Nationality"</option>
+<option value="Jew_Female"> "Jew_Female"</option>
+<option value="Jew_Male"> "Jew_Male"</option>
+<option value="LandLine_Registered"> "LandLine_Registered"</option>
+<option value="LandLine_Working"> "LandLine_Working"</option>
+<option value= "Male"> "Male"</option>
+<option value="Male_Age_18_to_29"> "Male_Age_18_to_29"</option>
+<option value="Male_Age_30_44"> "Male_Age_30_44"</option>
+<option value="Male_Age_45_59"> "Male_Age_45_59"</option>
+<option value="Male_Age_60_and_More"> "Male_Age_60_and_More"</option>
+<option value="Male_Age_6_and_More"> "Male_Age_6_and_More"</option>
+<option value="Male_Age_Up_to_17"> "Male_Age_Up_to_17"</option>
+<option value="Male_Age_Up_to_5"> "Male_Age_Up_to_5"</option>
+<option value="Muslim_Female"> "Muslim_Female"</option>
+<option value="Muslim_Male"> "Muslim_Male"</option>
+<option value="Nomad"> "Nomad"</option>
+<option value="Nomad_Families"> "Nomad_Families"</option>
+<option value="Non_Iranian"> "Non_Iranian"</option>
+<option value="Other_Countries_Female_Nationality"> "Other_Countries_Female_Nationality"</option>
+<option value="Other_Countries_Male_Nationality"> "Other_Countries_Male_Nationality"</option>
+<option value="Others_Female"> "Others_Female"</option>
+<option value="Others_Male"> "Others_Male"</option>
+<option value="Pakistan_Female_Nationality"> "Pakistan_Female_Nationality"</option>
+<option value="Pakistan_Male_Nationality"> "Pakistan_Male_Nationality"</option>
+<option value="Population"> "Population"</option>
+<option value="RighTel_Registered"> "RighTel_Registered"</option>
+<option value="RighTel_Working"> "RighTel_Working"</option>
+<option value= "Rural"> "Rural"</option>
+<option value="Rural_Families"> "Rural_Families"</option>
+<option value="Turkey_Female_Nationality"> "Turkey_Female_Nationality"</option>
+<option value="Turkey_Male_Nationality"> "Turkey_Male_Nationality"</option>
+<option value="Unknown_Female"> "Unknown_Female"</option>
+<option value="Unknown_Female_Nationality"> "Unknown_Female_Nationality"</option>
+<option value="Unknown_Nationality_Male"> "Unknown_Nationality_Male"</option>
+<option value="Unknown_Religion_Male"> "Unknown_Religion_Male"</option>
+<option value="Urban"> "Urban"</option>
+<option value="Urban_Families"> "Urban_Families"</option>
+<option value="Zoroaster_Female"> "Zoroaster_Female"</option>
+<option value="Zoroaster_Male"> "Zoroaster_Male"</option>
+</select>
+</div>
+</div>
+</div>
+        <div id='vis-container'></div>
+
+        <script type="text/javascript">
+            // Load and mung data, then make the visualizationn
+
+var datablob={
+   "Area": [
+      {
+         "Azarbaijan_East": 45650,
+         "Azarbaijan_West": 37411,
+         "Ardabil": 17799,
+         "Isfahan": 107017,
+         "Alborz": 5124,
+         "Ilam": 20132,
+         "Bushehr": 22742,
+         "Tehran": 13689,
+         "Chaharmahal_and_Bakhtiari": 16328,
+         "Khorasan_South": 95384,
+         "Khorasan_Razavi": 118851,
+         "Khorasan_North": 28434,
+         "Khuzestan": 64054,
+         "Zanjan": 21773,
+         "Semnan": 97490,
+         "Sistan_and_Baluchestan": 181785,
+         "Fars": 120608,
+         "Qazvin": 15567,
+         "Qom": 11526,
+         "Kurdistan": 29137,
+         "Kerman": 182726,
+         "Kermanshah": 25009,
+         "Kohgiluye_and_Boyer-Ahmad": 15504,
+         "Golestan": 20367,
+         "Gilan": 14042,
+         "Lorestan": 28294,
+         "Mazandaran": 23842,
+         "Markazi": 29127,
+         "Hormozgan": 70697,
+         "Hamedan": 19368,
+         "Yazd": 129285
+      }
+   ],
+   "Population": [
+      {
+         "Azarbaijan_East": 3909652,
+         "Azarbaijan_West": 3265219,
+         "Ardabil": 1270420,
+         "Isfahan": 5120850,
+         "Alborz": 2712400,
+         "Ilam": 580158,
+         "Bushehr": 1163400,
+         "Tehran": 13267637,
+         "Chaharmahal_and_Bakhtiari": 947763,
+         "Khorasan_South": 768898,
+         "Khorasan_Razavi": 6434501,
+         "Khorasan_North": 863092,
+         "Khuzestan": 4710509,
+         "Zanjan": 1057461,
+         "Semnan": 702360,
+         "Sistan_and_Baluchestan": 2775014,
+         "Fars": 4851274,
+         "Qazvin": 1273761,
+         "Qom": 1292283,
+         "Kurdistan": 1603011,
+         "Kerman": 3164718,
+         "Kermanshah": 1952434,
+         "Kohgiluye_and_Boyer-Ahmad": 713052,
+         "Golestan": 1868819,
+         "Gilan": 2530696,
+         "Lorestan": 1760649,
+         "Mazandaran": 3283582,
+         "Markazi": 1429475,
+         "Hormozgan": 1776415,
+         "Hamedan": 1738234,
+         "Yazd": 1138533
+      }
+   ],
+   "Male": [
+      {
+         "Azarbaijan_East": 1989400,
+         "Azarbaijan_West": 1658319,
+         "Ardabil": 650255,
+         "Isfahan": 2599477,
+         "Alborz": 1376335,
+         "Ilam": 295199,
+         "Bushehr": 620722,
+         "Tehran": 6673672,
+         "Chaharmahal_and_Bakhtiari": 482356,
+         "Khorasan_South": 389917,
+         "Khorasan_Razavi": 3245185,
+         "Khorasan_North": 433633,
+         "Khuzestan": 2388674,
+         "Zanjan": 534849,
+         "Semnan": 356656,
+         "Sistan_and_Baluchestan": 1401931,
+         "Fars": 2461251,
+         "Qazvin": 650499,
+         "Qom": 658540,
+         "Kurdistan": 812776,
+         "Kerman": 1617688,
+         "Kermanshah": 988015,
+         "Kohgiluye_and_Boyer-Ahmad": 361386,
+         "Golestan": 938327,
+         "Gilan": 1267597,
+         "Lorestan": 892889,
+         "Mazandaran": 1653998,
+         "Markazi": 725751,
+         "Hormozgan": 906814,
+         "Hamedan": 880318,
+         "Yazd": 586013
+      }
+   ],
+   "Female": [
+      {
+         "Azarbaijan_East": 1920252,
+         "Azarbaijan_West": 1606900,
+         "Ardabil": 620165,
+         "Isfahan": 2521373,
+         "Alborz": 1336065,
+         "Ilam": 284959,
+         "Bushehr": 542678,
+         "Tehran": 6593965,
+         "Chaharmahal_and_Bakhtiari": 465407,
+         "Khorasan_South": 378981,
+         "Khorasan_Razavi": 3189316,
+         "Khorasan_North": 429459,
+         "Khuzestan": 2321835,
+         "Zanjan": 522612,
+         "Semnan": 345704,
+         "Sistan_and_Baluchestan": 1373083,
+         "Fars": 2390023,
+         "Qazvin": 623262,
+         "Qom": 633743,
+         "Kurdistan": 790235,
+         "Kerman": 1547030,
+         "Kermanshah": 964419,
+         "Kohgiluye_and_Boyer-Ahmad": 351666,
+         "Golestan": 930492,
+         "Gilan": 1263099,
+         "Lorestan": 867760,
+         "Mazandaran": 1629584,
+         "Markazi": 703724,
+         "Hormozgan": 869601,
+         "Hamedan": 857916,
+         "Yazd": 552520
+      }
+   ],
+   "Age_Up_to_5": [
+      {
+         "Azarbaijan_East": 383504,
+         "Azarbaijan_West": 364513,
+         "Ardabil": 129378,
+         "Isfahan": 477352,
+         "Alborz": 246320,
+         "Ilam": 58085,
+         "Bushehr": 138796,
+         "Tehran": 1149532,
+         "Chaharmahal_and_Bakhtiari": 110625,
+         "Khorasan_South": 99887,
+         "Khorasan_Razavi": 785410,
+         "Khorasan_North": 103695,
+         "Khuzestan": 574254,
+         "Zanjan": 114226,
+         "Semnan": 64668,
+         "Sistan_and_Baluchestan": 495441,
+         "Fars": 478839,
+         "Qazvin": 129148,
+         "Qom": 153006,
+         "Kurdistan": 168164,
+         "Kerman": 378558,
+         "Kermanshah": 181265,
+         "Kohgiluye_and_Boyer-Ahmad": 87466,
+         "Golestan": 227215,
+         "Gilan": 176154,
+         "Lorestan": 191849,
+         "Mazandaran": 260240,
+         "Markazi": 133875,
+         "Hormozgan": 244137,
+         "Hamedan": 173496,
+         "Yazd": 140780
+      }
+   ],
+   "Age_6_and_More": [
+      {
+         "Azarbaijan_East": 3526148,
+         "Azarbaijan_West": 2900706,
+         "Ardabil": 1141042,
+         "Isfahan": 4643498,
+         "Alborz": 2466080,
+         "Ilam": 522073,
+         "Bushehr": 1024604,
+         "Tehran": 12118105,
+         "Chaharmahal_and_Bakhtiari": 837138,
+         "Khorasan_South": 669011,
+         "Khorasan_Razavi": 5649091,
+         "Khorasan_North": 759397,
+         "Khuzestan": 4136255,
+         "Zanjan": 943235,
+         "Semnan": 637692,
+         "Sistan_and_Baluchestan": 2279573,
+         "Fars": 4372435,
+         "Qazvin": 1144613,
+         "Qom": 1139277,
+         "Kurdistan": 1434847,
+         "Kerman": 2786160,
+         "Kermanshah": 1771169,
+         "Kohgiluye_and_Boyer-Ahmad": 625586,
+         "Golestan": 1641604,
+         "Gilan": 2354542,
+         "Lorestan": 1568800,
+         "Mazandaran": 3023342,
+         "Markazi": 1295600,
+         "Hormozgan": 1532278,
+         "Hamedan": 1564738,
+         "Yazd": 997753
+      }
+   ],
+   "Male_Age_Up_to_5": [
+      {
+         "Azarbaijan_East": 198482,
+         "Azarbaijan_West": 188084,
+         "Ardabil": 67410,
+         "Isfahan": 245053,
+         "Alborz": 126152,
+         "Ilam": 29962,
+         "Bushehr": 70970,
+         "Tehran": 590620,
+         "Chaharmahal_and_Bakhtiari": 57186,
+         "Khorasan_South": 51071,
+         "Khorasan_Razavi": 403903,
+         "Khorasan_North": 53458,
+         "Khuzestan": 295999,
+         "Zanjan": 58877,
+         "Semnan": 32983,
+         "Sistan_and_Baluchestan": 254739,
+         "Fars": 246073,
+         "Qazvin": 66539,
+         "Qom": 78335,
+         "Kurdistan": 86284,
+         "Kerman": 193598,
+         "Kermanshah": 94738,
+         "Kohgiluye_and_Boyer-Ahmad": 45155,
+         "Golestan": 116133,
+         "Gilan": 89866,
+         "Lorestan": 100064,
+         "Mazandaran": 132987,
+         "Markazi": 69129,
+         "Hormozgan": 125002,
+         "Hamedan": 89909,
+         "Yazd": 71855
+      }
+   ],
+   "Male_Age_6_and_More": [
+      {
+         "Azarbaijan_East": 1790918,
+         "Azarbaijan_West": 1470235,
+         "Ardabil": 582845,
+         "Isfahan": 2354424,
+         "Alborz": 1250183,
+         "Ilam": 265237,
+         "Bushehr": 549752,
+         "Tehran": 6083052,
+         "Chaharmahal_and_Bakhtiari": 425170,
+         "Khorasan_South": 338846,
+         "Khorasan_Razavi": 2841282,
+         "Khorasan_North": 380175,
+         "Khuzestan": 2092675,
+         "Zanjan": 475972,
+         "Semnan": 323673,
+         "Sistan_and_Baluchestan": 1147192,
+         "Fars": 2215178,
+         "Qazvin": 583960,
+         "Qom": 580205,
+         "Kurdistan": 726492,
+         "Kerman": 1424090,
+         "Kermanshah": 893277,
+         "Kohgiluye_and_Boyer-Ahmad": 316231,
+         "Golestan": 822194,
+         "Gilan": 1177731,
+         "Lorestan": 792825,
+         "Mazandaran": 1521011,
+         "Markazi": 656622,
+         "Hormozgan": 781812,
+         "Hamedan": 790409,
+         "Yazd": 514158
+      }
+   ],
+   "Female_Age_Up_to_5": [
+      {
+         "Azarbaijan_East": 185022,
+         "Azarbaijan_West": 176429,
+         "Ardabil": 61968,
+         "Isfahan": 232299,
+         "Alborz": 120168,
+         "Ilam": 28123,
+         "Bushehr": 67826,
+         "Tehran": 558912,
+         "Chaharmahal_and_Bakhtiari": 53439,
+         "Khorasan_South": 48816,
+         "Khorasan_Razavi": 381507,
+         "Khorasan_North": 50237,
+         "Khuzestan": 278255,
+         "Zanjan": 55349,
+         "Semnan": 31685,
+         "Sistan_and_Baluchestan": 240702,
+         "Fars": 232766,
+         "Qazvin": 62609,
+         "Qom": 74671,
+         "Kurdistan": 81880,
+         "Kerman": 184960,
+         "Kermanshah": 86527,
+         "Kohgiluye_and_Boyer-Ahmad": 42311,
+         "Golestan": 111082,
+         "Gilan": 86288,
+         "Lorestan": 91785,
+         "Mazandaran": 127253,
+         "Markazi": 64746,
+         "Hormozgan": 119135,
+         "Hamedan": 83587,
+         "Yazd": 68925
+      }
+   ],
+   "Female_Age_6_and_More": [
+      {
+         "Azarbaijan_East": 1735230,
+         "Azarbaijan_West": 1430471,
+         "Ardabil": 558197,
+         "Isfahan": 2289074,
+         "Alborz": 1215897,
+         "Ilam": 256836,
+         "Bushehr": 474852,
+         "Tehran": 6035053,
+         "Chaharmahal_and_Bakhtiari": 411968,
+         "Khorasan_South": 330165,
+         "Khorasan_Razavi": 2807809,
+         "Khorasan_North": 379222,
+         "Khuzestan": 2043580,
+         "Zanjan": 467263,
+         "Semnan": 314019,
+         "Sistan_and_Baluchestan": 1132381,
+         "Fars": 2157257,
+         "Qazvin": 560653,
+         "Qom": 559072,
+         "Kurdistan": 708355,
+         "Kerman": 1362070,
+         "Kermanshah": 877892,
+         "Kohgiluye_and_Boyer-Ahmad": 309355,
+         "Golestan": 819410,
+         "Gilan": 1176811,
+         "Lorestan": 775975,
+         "Mazandaran": 1502331,
+         "Markazi": 638978,
+         "Hormozgan": 750466,
+         "Hamedan": 774329,
+         "Yazd": 483595
+      }
+   ],
+   "Age_Up_to_17": [
+      {
+         "Azarbaijan_East": 1049276,
+         "Azarbaijan_West": 980844,
+         "Ardabil": 352574,
+         "Isfahan": 1299467,
+         "Alborz": 679120,
+         "Ilam": 156366,
+         "Bushehr": 349616,
+         "Tehran": 3165949,
+         "Chaharmahal_and_Bakhtiari": 286288,
+         "Khorasan_South": 254624,
+         "Khorasan_Razavi": 2011092,
+         "Khorasan_North": 276070,
+         "Khuzestan": 1494399,
+         "Zanjan": 294205,
+         "Semnan": 177335,
+         "Sistan_and_Baluchestan": 1220171,
+         "Fars": 1304480,
+         "Qazvin": 345757,
+         "Qom": 388837,
+         "Kurdistan": 446016,
+         "Kerman": 1000884,
+         "Kermanshah": 499752,
+         "Kohgiluye_and_Boyer-Ahmad": 225492,
+         "Golestan": 578981,
+         "Gilan": 546804,
+         "Lorestan": 504428,
+         "Mazandaran": 766075,
+         "Markazi": 366815,
+         "Hormozgan": 610110,
+         "Hamedan": 460160,
+         "Yazd": 353688
+      },
+      {
+         "Azarbaijan_East": 508352,
+         "Azarbaijan_West": 475466,
+         "Ardabil": 169906,
+         "Isfahan": 633166,
+         "Alborz": 330580,
+         "Ilam": 75918,
+         "Bushehr": 170627,
+         "Tehran": 1542164,
+         "Chaharmahal_and_Bakhtiari": 139520,
+         "Khorasan_South": 124429,
+         "Khorasan_Razavi": 979887,
+         "Khorasan_North": 134527,
+         "Khuzestan": 726450,
+         "Zanjan": 142999,
+         "Semnan": 87072,
+         "Sistan_and_Baluchestan": 596153,
+         "Fars": 635868,
+         "Qazvin": 167614,
+         "Qom": 189822,
+         "Kurdistan": 218023,
+         "Kerman": 489305,
+         "Kermanshah": 240214,
+         "Kohgiluye_and_Boyer-Ahmad": 109907,
+         "Golestan": 283544,
+         "Gilan": 267638,
+         "Lorestan": 244060,
+         "Mazandaran": 375781,
+         "Markazi": 178605,
+         "Hormozgan": 297882,
+         "Hamedan": 222507,
+         "Yazd": 173120
+      }
+   ],
+   "Age_18_to_29": [
+      {
+         "Azarbaijan_East": 762535,
+         "Azarbaijan_West": 713215,
+         "Ardabil": 275675,
+         "Isfahan": 1011933,
+         "Alborz": 547075,
+         "Ilam": 136027,
+         "Bushehr": 265369,
+         "Tehran": 2634639,
+         "Chaharmahal_and_Bakhtiari": 207115,
+         "Khorasan_South": 165548,
+         "Khorasan_Razavi": 1334331,
+         "Khorasan_North": 185730,
+         "Khuzestan": 1069871,
+         "Zanjan": 227790,
+         "Semnan": 166471,
+         "Sistan_and_Baluchestan": 631688,
+         "Fars": 1032242,
+         "Qazvin": 267144,
+         "Qom": 281638,
+         "Kurdistan": 362331,
+         "Kerman": 710703,
+         "Kermanshah": 434987,
+         "Kohgiluye_and_Boyer-Ahmad": 167408,
+         "Golestan": 394236,
+         "Gilan": 479957,
+         "Lorestan": 392590,
+         "Mazandaran": 638954,
+         "Markazi": 291457,
+         "Hormozgan": 416772,
+         "Hamedan": 363009,
+         "Yazd": 231559
+      },
+      {
+         "Azarbaijan_East": 369069,
+         "Azarbaijan_West": 349663,
+         "Ardabil": 132097,
+         "Isfahan": 503707,
+         "Alborz": 277068,
+         "Ilam": 66239,
+         "Bushehr": 119763,
+         "Tehran": 1331928,
+         "Chaharmahal_and_Bakhtiari": 102036,
+         "Khorasan_South": 78025,
+         "Khorasan_Razavi": 666847,
+         "Khorasan_North": 91654,
+         "Khuzestan": 533424,
+         "Zanjan": 112582,
+         "Semnan": 81357,
+         "Sistan_and_Baluchestan": 312370,
+         "Fars": 504370,
+         "Qazvin": 132495,
+         "Qom": 141156,
+         "Kurdistan": 179069,
+         "Kerman": 345121,
+         "Kermanshah": 211203,
+         "Kohgiluye_and_Boyer-Ahmad": 83202,
+         "Golestan": 194139,
+         "Gilan": 236590,
+         "Lorestan": 190492,
+         "Mazandaran": 315782,
+         "Markazi": 142848,
+         "Hormozgan": 205292,
+         "Hamedan": 178652,
+         "Yazd": 112967
+      }
+   ],
+   "Age_30_44": [
+      {
+         "Azarbaijan_East": 1042873,
+         "Azarbaijan_West": 806914,
+         "Ardabil": 329639,
+         "Isfahan": 1412256,
+         "Alborz": 800708,
+         "Ilam": 157933,
+         "Bushehr": 327706,
+         "Tehran": 3798898,
+         "Chaharmahal_and_Bakhtiari": 241523,
+         "Khorasan_South": 173347,
+         "Khorasan_Razavi": 1642946,
+         "Khorasan_North": 206850,
+         "Khuzestan": 1197296,
+         "Zanjan": 279653,
+         "Semnan": 180218,
+         "Sistan_and_Baluchestan": 554522,
+         "Fars": 1316941,
+         "Qazvin": 355469,
+         "Qom": 342759,
+         "Kurdistan": 416377,
+         "Kerman": 794415,
+         "Kermanshah": 507240,
+         "Kohgiluye_and_Boyer-Ahmad": 180281,
+         "Golestan": 480404,
+         "Gilan": 665989,
+         "Lorestan": 457826,
+         "Mazandaran": 902071,
+         "Markazi": 384754,
+         "Hormozgan": 447580,
+         "Hamedan": 454910,
+         "Yazd": 296520
+      },
+      {
+         "Azarbaijan_East": 515555,
+         "Azarbaijan_West": 397701,
+         "Ardabil": 162128,
+         "Isfahan": 695968,
+         "Alborz": 391631,
+         "Ilam": 78472,
+         "Bushehr": 144933,
+         "Tehran": 1887360,
+         "Chaharmahal_and_Bakhtiari": 117883,
+         "Khorasan_South": 86495,
+         "Khorasan_Razavi": 811934,
+         "Khorasan_North": 104260,
+         "Khuzestan": 591813,
+         "Zanjan": 137013,
+         "Semnan": 88204,
+         "Sistan_and_Baluchestan": 280364,
+         "Fars": 652205,
+         "Qazvin": 170680,
+         "Qom": 166212,
+         "Kurdistan": 202989,
+         "Kerman": 384429,
+         "Kermanshah": 253610,
+         "Kohgiluye_and_Boyer-Ahmad": 89782,
+         "Golestan": 241800,
+         "Gilan": 334014,
+         "Lorestan": 228081,
+         "Mazandaran": 445241,
+         "Markazi": 187970,
+         "Hormozgan": 215822,
+         "Hamedan": 223759,
+         "Yazd": 141769
+      }
+   ],
+   "Age_45_59": [
+      {
+         "Azarbaijan_East": 635374,
+         "Azarbaijan_West": 484662,
+         "Ardabil": 193485,
+         "Isfahan": 852196,
+         "Alborz": 443722,
+         "Ilam": 80472,
+         "Bushehr": 141123,
+         "Tehran": 2282606,
+         "Chaharmahal_and_Bakhtiari": 130463,
+         "Khorasan_South": 100354,
+         "Khorasan_Razavi": 900611,
+         "Khorasan_North": 121079,
+         "Khuzestan": 616744,
+         "Zanjan": 152362,
+         "Semnan": 108258,
+         "Sistan_and_Baluchestan": 233052,
+         "Fars": 738855,
+         "Qazvin": 191712,
+         "Qom": 179595,
+         "Kurdistan": 229142,
+         "Kerman": 411510,
+         "Kermanshah": 314754,
+         "Kohgiluye_and_Boyer-Ahmad": 88969,
+         "Golestan": 269504,
+         "Gilan": 502633,
+         "Lorestan": 250334,
+         "Mazandaran": 601681,
+         "Markazi": 230754,
+         "Hormozgan": 194559,
+         "Hamedan": 272406,
+         "Yazd": 156716
+      },
+      {
+         "Azarbaijan_East": 315696,
+         "Azarbaijan_West": 239495,
+         "Ardabil": 95147,
+         "Isfahan": 416699,
+         "Alborz": 216957,
+         "Ilam": 40186,
+         "Bushehr": 66188,
+         "Tehran": 1137107,
+         "Chaharmahal_and_Bakhtiari": 64025,
+         "Khorasan_South": 52131,
+         "Khorasan_Razavi": 451719,
+         "Khorasan_North": 61156,
+         "Khuzestan": 302061,
+         "Zanjan": 75858,
+         "Semnan": 53568,
+         "Sistan_and_Baluchestan": 118546,
+         "Fars": 364730,
+         "Qazvin": 94417,
+         "Qom": 87098,
+         "Kurdistan": 115081,
+         "Kerman": 204507,
+         "Kermanshah": 159023,
+         "Kohgiluye_and_Boyer-Ahmad": 44298,
+         "Golestan": 135282,
+         "Gilan": 252982,
+         "Lorestan": 125383,
+         "Mazandaran": 302678,
+         "Markazi": 112979,
+         "Hormozgan": 95832,
+         "Hamedan": 134522,
+         "Yazd": 74401
+      }
+   ],
+   "Age_60_and_More": [
+      {
+         "Azarbaijan_East": 419594,
+         "Azarbaijan_West": 279584,
+         "Ardabil": 119047,
+         "Isfahan": 544998,
+         "Alborz": 241775,
+         "Ilam": 49360,
+         "Bushehr": 79586,
+         "Tehran": 1385545,
+         "Chaharmahal_and_Bakhtiari": 82374,
+         "Khorasan_South": 75025,
+         "Khorasan_Razavi": 545521,
+         "Khorasan_North": 73363,
+         "Khuzestan": 332199,
+         "Zanjan": 103451,
+         "Semnan": 70078,
+         "Sistan_and_Baluchestan": 135581,
+         "Fars": 458756,
+         "Qazvin": 113679,
+         "Qom": 99454,
+         "Kurdistan": 149145,
+         "Kerman": 247206,
+         "Kermanshah": 195701,
+         "Kohgiluye_and_Boyer-Ahmad": 50902,
+         "Golestan": 145694,
+         "Gilan": 335313,
+         "Lorestan": 155471,
+         "Mazandaran": 374801,
+         "Markazi": 155695,
+         "Hormozgan": 107394,
+         "Hamedan": 187749,
+         "Yazd": 100050
+      },
+      {
+         "Azarbaijan_East": 211580,
+         "Azarbaijan_West": 144575,
+         "Ardabil": 60887,
+         "Isfahan": 271833,
+         "Alborz": 119829,
+         "Ilam": 24144,
+         "Bushehr": 41167,
+         "Tehran": 695406,
+         "Chaharmahal_and_Bakhtiari": 41943,
+         "Khorasan_South": 37901,
+         "Khorasan_Razavi": 278929,
+         "Khorasan_North": 37862,
+         "Khuzestan": 168087,
+         "Zanjan": 54160,
+         "Semnan": 35503,
+         "Sistan_and_Baluchestan": 65650,
+         "Fars": 232850,
+         "Qazvin": 58056,
+         "Qom": 49455,
+         "Kurdistan": 75073,
+         "Kerman": 123668,
+         "Kermanshah": 100369,
+         "Kohgiluye_and_Boyer-Ahmad": 24477,
+         "Golestan": 75727,
+         "Gilan": 171875,
+         "Lorestan": 79744,
+         "Mazandaran": 190102,
+         "Markazi": 81322,
+         "Hormozgan": 54773,
+         "Hamedan": 98476,
+         "Yazd": 50263
+      }
+   ],
+   "Male_Age_Up_to_17": [
+      {
+         "Azarbaijan_East": 540924,
+         "Azarbaijan_West": 505378,
+         "Ardabil": 182668,
+         "Isfahan": 666301,
+         "Alborz": 348540,
+         "Ilam": 80448,
+         "Bushehr": 178989,
+         "Tehran": 1623785,
+         "Chaharmahal_and_Bakhtiari": 146768,
+         "Khorasan_South": 130195,
+         "Khorasan_Razavi": 1031205,
+         "Khorasan_North": 141543,
+         "Khuzestan": 767949,
+         "Zanjan": 151206,
+         "Semnan": 90263,
+         "Sistan_and_Baluchestan": 624018,
+         "Fars": 668612,
+         "Qazvin": 178143,
+         "Qom": 199015,
+         "Kurdistan": 227993,
+         "Kerman": 511579,
+         "Kermanshah": 259538,
+         "Kohgiluye_and_Boyer-Ahmad": 115585,
+         "Golestan": 295437,
+         "Gilan": 279166,
+         "Lorestan": 260368,
+         "Mazandaran": 390294,
+         "Markazi": 188210,
+         "Hormozgan": 312228,
+         "Hamedan": 237653,
+         "Yazd": 180568
+      }
+   ],
+   "Male_Age_18_to_29": [
+      {
+         "Azarbaijan_East": 393466,
+         "Azarbaijan_West": 363552,
+         "Ardabil": 143578,
+         "Isfahan": 508226,
+         "Alborz": 270007,
+         "Ilam": 69788,
+         "Bushehr": 145606,
+         "Tehran": 1302711,
+         "Chaharmahal_and_Bakhtiari": 105079,
+         "Khorasan_South": 87523,
+         "Khorasan_Razavi": 667484,
+         "Khorasan_North": 94076,
+         "Khuzestan": 536447,
+         "Zanjan": 115208,
+         "Semnan": 85114,
+         "Sistan_and_Baluchestan": 319318,
+         "Fars": 527872,
+         "Qazvin": 134649,
+         "Qom": 140482,
+         "Kurdistan": 183262,
+         "Kerman": 365582,
+         "Kermanshah": 223784,
+         "Kohgiluye_and_Boyer-Ahmad": 84206,
+         "Golestan": 200097,
+         "Gilan": 243367,
+         "Lorestan": 202098,
+         "Mazandaran": 323172,
+         "Markazi": 148609,
+         "Hormozgan": 211480,
+         "Hamedan": 184357,
+         "Yazd": 118592
+      }
+   ],
+   "Male_Age_30_44": [
+      {
+         "Azarbaijan_East": 527318,
+         "Azarbaijan_West": 409213,
+         "Ardabil": 167511,
+         "Isfahan": 716288,
+         "Alborz": 409077,
+         "Ilam": 79461,
+         "Bushehr": 182773,
+         "Tehran": 1911538,
+         "Chaharmahal_and_Bakhtiari": 123640,
+         "Khorasan_South": 86852,
+         "Khorasan_Razavi": 831012,
+         "Khorasan_North": 102590,
+         "Khuzestan": 605483,
+         "Zanjan": 142640,
+         "Semnan": 92014,
+         "Sistan_and_Baluchestan": 274158,
+         "Fars": 664736,
+         "Qazvin": 184789,
+         "Qom": 176547,
+         "Kurdistan": 213388,
+         "Kerman": 409986,
+         "Kermanshah": 253630,
+         "Kohgiluye_and_Boyer-Ahmad": 90499,
+         "Golestan": 238604,
+         "Gilan": 331975,
+         "Lorestan": 229745,
+         "Mazandaran": 456830,
+         "Markazi": 196784,
+         "Hormozgan": 231758,
+         "Hamedan": 231151,
+         "Yazd": 154751
+      }
+   ],
+   "Male_Age_45_59": [
+      {
+         "Azarbaijan_East": 319678,
+         "Azarbaijan_West": 245167,
+         "Ardabil": 98338,
+         "Isfahan": 435497,
+         "Alborz": 226765,
+         "Ilam": 40286,
+         "Bushehr": 74935,
+         "Tehran": 1145499,
+         "Chaharmahal_and_Bakhtiari": 66438,
+         "Khorasan_South": 48223,
+         "Khorasan_Razavi": 448892,
+         "Khorasan_North": 59923,
+         "Khuzestan": 314683,
+         "Zanjan": 76504,
+         "Semnan": 54690,
+         "Sistan_and_Baluchestan": 114506,
+         "Fars": 374125,
+         "Qazvin": 97295,
+         "Qom": 92497,
+         "Kurdistan": 114061,
+         "Kerman": 207003,
+         "Kermanshah": 155731,
+         "Kohgiluye_and_Boyer-Ahmad": 44671,
+         "Golestan": 134222,
+         "Gilan": 249651,
+         "Lorestan": 124951,
+         "Mazandaran": 299003,
+         "Markazi": 117775,
+         "Hormozgan": 98727,
+         "Hamedan": 137884,
+         "Yazd": 82315
+      }
+   ],
+   "Male_Age_60_and_More": [
+      {
+         "Azarbaijan_East": 208014,
+         "Azarbaijan_West": 135009,
+         "Ardabil": 58160,
+         "Isfahan": 273165,
+         "Alborz": 121946,
+         "Ilam": 25216,
+         "Bushehr": 38419,
+         "Tehran": 690139,
+         "Chaharmahal_and_Bakhtiari": 40431,
+         "Khorasan_South": 37124,
+         "Khorasan_Razavi": 266592,
+         "Khorasan_North": 35501,
+         "Khuzestan": 164112,
+         "Zanjan": 49291,
+         "Semnan": 34575,
+         "Sistan_and_Baluchestan": 69931,
+         "Fars": 225906,
+         "Qazvin": 55623,
+         "Qom": 49999,
+         "Kurdistan": 74072,
+         "Kerman": 123538,
+         "Kermanshah": 95332,
+         "Kohgiluye_and_Boyer-Ahmad": 26425,
+         "Golestan": 69967,
+         "Gilan": 163438,
+         "Lorestan": 75727,
+         "Mazandaran": 184699,
+         "Markazi": 74373,
+         "Hormozgan": 52621,
+         "Hamedan": 89273,
+         "Yazd": 49787
+      }
+   ],
+   "Urban": [
+      {
+         "Azarbaijan_East": 2809424,
+         "Azarbaijan_West": 2136203,
+         "Ardabil": 866034,
+         "Isfahan": 4507309,
+         "Alborz": 2512737,
+         "Ilam": 395263,
+         "Bushehr": 835955,
+         "Tehran": 12452230,
+         "Chaharmahal_and_Bakhtiari": 607444,
+         "Khorasan_South": 453827,
+         "Khorasan_Razavi": 4700924,
+         "Khorasan_North": 484346,
+         "Khuzestan": 3554205,
+         "Zanjan": 711177,
+         "Semnan": 560502,
+         "Sistan_and_Baluchestan": 1345642,
+         "Fars": 3401675,
+         "Qazvin": 952149,
+         "Qom": 1229964,
+         "Kurdistan": 1134229,
+         "Kerman": 1858587,
+         "Kermanshah": 1468615,
+         "Kohgiluye_and_Boyer-Ahmad": 397461,
+         "Golestan": 995615,
+         "Gilan": 1603026,
+         "Lorestan": 1134908,
+         "Mazandaran": 1897238,
+         "Markazi": 1099764,
+         "Hormozgan": 971822,
+         "Hamedan": 1097217,
+         "Yazd": 971355
+      }
+   ],
+   "Rural": [
+      {
+         "Azarbaijan_East": 1100220,
+         "Azarbaijan_West": 1129000,
+         "Ardabil": 404236,
+         "Isfahan": 613073,
+         "Alborz": 199559,
+         "Ilam": 184444,
+         "Bushehr": 325495,
+         "Tehran": 814698,
+         "Chaharmahal_and_Bakhtiari": 339667,
+         "Khorasan_South": 315070,
+         "Khorasan_Razavi": 1733121,
+         "Khorasan_North": 377533,
+         "Khuzestan": 1151596,
+         "Zanjan": 346283,
+         "Semnan": 141858,
+         "Sistan_and_Baluchestan": 1427332,
+         "Fars": 1432355,
+         "Qazvin": 321610,
+         "Qom": 62317,
+         "Kurdistan": 468778,
+         "Kerman": 1302557,
+         "Kermanshah": 478444,
+         "Kohgiluye_and_Boyer-Ahmad": 314009,
+         "Golestan": 871546,
+         "Gilan": 927660,
+         "Lorestan": 623896,
+         "Mazandaran": 1386337,
+         "Markazi": 329690,
+         "Hormozgan": 802512,
+         "Hamedan": 639005,
+         "Yazd": 166724
+      }
+   ],
+   "Nomad": [
+      {
+         "Azarbaijan_East": 8,
+         "Azarbaijan_West": 16,
+         "Ardabil": 150,
+         "Isfahan": 468,
+         "Alborz": 104,
+         "Ilam": 451,
+         "Bushehr": 1950,
+         "Tehran": 709,
+         "Chaharmahal_and_Bakhtiari": 652,
+         "Khorasan_South": 1,
+         "Khorasan_Razavi": 456,
+         "Khorasan_North": 1213,
+         "Khuzestan": 4708,
+         "Zanjan": 1,
+         "Semnan": 0,
+         "Sistan_and_Baluchestan": 2040,
+         "Fars": 17244,
+         "Qazvin": 2,
+         "Qom": 2,
+         "Kurdistan": 4,
+         "Kerman": 3574,
+         "Kermanshah": 5375,
+         "Kohgiluye_and_Boyer-Ahmad": 1582,
+         "Golestan": 1658,
+         "Gilan": 10,
+         "Lorestan": 1845,
+         "Mazandaran": 7,
+         "Markazi": 21,
+         "Hormozgan": 2081,
+         "Hamedan": 2012,
+         "Yazd": 454
+      }
+   ],
+   "Urban_Families": [
+      {
+         "Azarbaijan_East": 887143,
+         "Azarbaijan_West": 631103,
+         "Ardabil": 256895,
+         "Isfahan": 1411624,
+         "Alborz": 793024,
+         "Ilam": 109648,
+         "Bushehr": 237025,
+         "Tehran": 4052507,
+         "Chaharmahal_and_Bakhtiari": 175842,
+         "Khorasan_South": 129036,
+         "Khorasan_Razavi": 1422109,
+         "Khorasan_North": 143219,
+         "Khuzestan": 985361,
+         "Zanjan": 217713,
+         "Semnan": 169755,
+         "Sistan_and_Baluchestan": 334808,
+         "Fars": 1022402,
+         "Qazvin": 295019,
+         "Qom": 365334,
+         "Kurdistan": 337240,
+         "Kerman": 551141,
+         "Kermanshah": 440604,
+         "Kohgiluye_and_Boyer-Ahmad": 103270,
+         "Golestan": 301273,
+         "Gilan": 537417,
+         "Lorestan": 333954,
+         "Mazandaran": 624661,
+         "Markazi": 346468,
+         "Hormozgan": 275619,
+         "Hamedan": 343606,
+         "Yazd": 290668
+      }
+   ],
+   "Rural_Families": [
+      {
+         "Azarbaijan_East": 335878,
+         "Azarbaijan_West": 304837,
+         "Ardabil": 120481,
+         "Isfahan": 195701,
+         "Alborz": 62995,
+         "Ilam": 49542,
+         "Bushehr": 84265,
+         "Tehran": 235397,
+         "Chaharmahal_and_Bakhtiari": 94427,
+         "Khorasan_South": 94947,
+         "Khorasan_Razavi": 516419,
+         "Khorasan_North": 111191,
+         "Khuzestan": 294177,
+         "Zanjan": 104269,
+         "Semnan": 45816,
+         "Sistan_and_Baluchestan": 369226,
+         "Fars": 415085,
+         "Qazvin": 102144,
+         "Qom": 18196,
+         "Kurdistan": 134066,
+         "Kerman": 380287,
+         "Kermanshah": 134915,
+         "Kohgiluye_and_Boyer-Ahmad": 82558,
+         "Golestan": 248422,
+         "Gilan": 313957,
+         "Lorestan": 174525,
+         "Mazandaran": 460131,
+         "Markazi": 109378,
+         "Hormozgan": 217321,
+         "Hamedan": 194698,
+         "Yazd": 49688
+      }
+   ],
+   "Nomad_Families": [
+      {
+         "Azarbaijan_East": 7,
+         "Azarbaijan_West": 16,
+         "Ardabil": 47,
+         "Isfahan": 157,
+         "Alborz": 97,
+         "Ilam": 120,
+         "Bushehr": 536,
+         "Tehran": 659,
+         "Chaharmahal_and_Bakhtiari": 165,
+         "Khorasan_South": 1,
+         "Khorasan_Razavi": 175,
+         "Khorasan_North": 337,
+         "Khuzestan": 1107,
+         "Zanjan": 1,
+         "Semnan": 0,
+         "Sistan_and_Baluchestan": 854,
+         "Fars": 5540,
+         "Qazvin": 2,
+         "Qom": 2,
+         "Kurdistan": 4,
+         "Kerman": 1293,
+         "Kermanshah": 1342,
+         "Kohgiluye_and_Boyer-Ahmad": 492,
+         "Golestan": 554,
+         "Gilan": 8,
+         "Lorestan": 546,
+         "Mazandaran": 6,
+         "Markazi": 20,
+         "Hormozgan": 720,
+         "Hamedan": 499,
+         "Yazd": 301
+      }
+   ],
+   "Muslim_Male": [
+      {
+         "Azarbaijan_East": 1982752,
+         "Azarbaijan_West": 1650622,
+         "Ardabil": 648186,
+         "Isfahan": 2589137,
+         "Alborz": 1370889,
+         "Ilam": 294349,
+         "Bushehr": 617883,
+         "Tehran": 6629386,
+         "Chaharmahal_and_Bakhtiari": 480817,
+         "Khorasan_South": 389084,
+         "Khorasan_Razavi": 3231588,
+         "Khorasan_North": 432886,
+         "Khuzestan": 2372760,
+         "Zanjan": 533670,
+         "Semnan": 355817,
+         "Sistan_and_Baluchestan": 1397239,
+         "Fars": 2452553,
+         "Qazvin": 649295,
+         "Qom": 654399,
+         "Kurdistan": 811365,
+         "Kerman": 1604125,
+         "Kermanshah": 984955,
+         "Kohgiluye_and_Boyer-Ahmad": 360587,
+         "Golestan": 936822,
+         "Gilan": 1266117,
+         "Lorestan": 891103,
+         "Mazandaran": 1648759,
+         "Markazi": 723744,
+         "Hormozgan": 904595,
+         "Hamedan": 877159,
+         "Yazd": 582433
+      }
+   ],
+   "Christian_Male": [
+      {
+         "Azarbaijan_East": 2280,
+         "Azarbaijan_West": 3982,
+         "Ardabil": 813,
+         "Isfahan": 4555,
+         "Alborz": 1825,
+         "Ilam": 474,
+         "Bushehr": 1116,
+         "Tehran": 21696,
+         "Chaharmahal_and_Bakhtiari": 709,
+         "Khorasan_South": 605,
+         "Khorasan_Razavi": 3952,
+         "Khorasan_North": 554,
+         "Khuzestan": 3709,
+         "Zanjan": 609,
+         "Semnan": 447,
+         "Sistan_and_Baluchestan": 2211,
+         "Fars": 3266,
+         "Qazvin": 745,
+         "Qom": 622,
+         "Kurdistan": 1088,
+         "Kerman": 2507,
+         "Kermanshah": 1304,
+         "Kohgiluye_and_Boyer-Ahmad": 519,
+         "Golestan": 795,
+         "Gilan": 1202,
+         "Lorestan": 1386,
+         "Mazandaran": 1953,
+         "Markazi": 951,
+         "Hormozgan": 1340,
+         "Hamedan": 1170,
+         "Yazd": 690
+      }
+   ],
+   "Jew_Male": [
+      {
+         "Azarbaijan_East": 16,
+         "Azarbaijan_West": 31,
+         "Ardabil": 9,
+         "Isfahan": 544,
+         "Alborz": 27,
+         "Ilam": 5,
+         "Bushehr": 9,
+         "Tehran": 2607,
+         "Chaharmahal_and_Bakhtiari": 3,
+         "Khorasan_South": 4,
+         "Khorasan_Razavi": 84,
+         "Khorasan_North": 8,
+         "Khuzestan": 38,
+         "Zanjan": 4,
+         "Semnan": 11,
+         "Sistan_and_Baluchestan": 17,
+         "Fars": 1444,
+         "Qazvin": 5,
+         "Qom": 10,
+         "Kurdistan": 16,
+         "Kerman": 39,
+         "Kermanshah": 52,
+         "Kohgiluye_and_Boyer-Ahmad": 7,
+         "Golestan": 8,
+         "Gilan": 21,
+         "Lorestan": 19,
+         "Mazandaran": 16,
+         "Markazi": 10,
+         "Hormozgan": 6,
+         "Hamedan": 18,
+         "Yazd": 23
+      }
+   ],
+   "Zoroaster_Male": [
+      {
+         "Azarbaijan_East": 273,
+         "Azarbaijan_West": 273,
+         "Ardabil": 118,
+         "Isfahan": 593,
+         "Alborz": 368,
+         "Ilam": 96,
+         "Bushehr": 79,
+         "Tehran": 4243,
+         "Chaharmahal_and_Bakhtiari": 110,
+         "Khorasan_South": 110,
+         "Khorasan_Razavi": 596,
+         "Khorasan_North": 68,
+         "Khuzestan": 485,
+         "Zanjan": 106,
+         "Semnan": 68,
+         "Sistan_and_Baluchestan": 269,
+         "Fars": 504,
+         "Qazvin": 82,
+         "Qom": 92,
+         "Kurdistan": 151,
+         "Kerman": 703,
+         "Kermanshah": 267,
+         "Kohgiluye_and_Boyer-Ahmad": 61,
+         "Golestan": 70,
+         "Gilan": 102,
+         "Lorestan": 196,
+         "Mazandaran": 166,
+         "Markazi": 143,
+         "Hormozgan": 120,
+         "Hamedan": 189,
+         "Yazd": 1841
+      }
+   ],
+   "Others_Male": [
+      {
+         "Azarbaijan_East": 211,
+         "Azarbaijan_West": 314,
+         "Ardabil": 33,
+         "Isfahan": 3000,
+         "Alborz": 2008,
+         "Ilam": 12,
+         "Bushehr": 163,
+         "Tehran": 5021,
+         "Chaharmahal_and_Bakhtiari": 50,
+         "Khorasan_South": 107,
+         "Khorasan_Razavi": 535,
+         "Khorasan_North": 29,
+         "Khuzestan": 637,
+         "Zanjan": 126,
+         "Semnan": 158,
+         "Sistan_and_Baluchestan": 256,
+         "Fars": 2393,
+         "Qazvin": 338,
+         "Qom": 37,
+         "Kurdistan": 97,
+         "Kerman": 2011,
+         "Kermanshah": 779,
+         "Kohgiluye_and_Boyer-Ahmad": 131,
+         "Golestan": 496,
+         "Gilan": 113,
+         "Lorestan": 50,
+         "Mazandaran": 1062,
+         "Markazi": 195,
+         "Hormozgan": 264,
+         "Hamedan": 154,
+         "Yazd": 428
+      }
+   ],
+   "Unknown_Religion_Male": [
+      {
+         "Azarbaijan_East": 3868,
+         "Azarbaijan_West": 3097,
+         "Ardabil": 1096,
+         "Isfahan": 1648,
+         "Alborz": 1218,
+         "Ilam": 263,
+         "Bushehr": 1472,
+         "Tehran": 10719,
+         "Chaharmahal_and_Bakhtiari": 667,
+         "Khorasan_South": 7,
+         "Khorasan_Razavi": 8430,
+         "Khorasan_North": 88,
+         "Khuzestan": 11045,
+         "Zanjan": 334,
+         "Semnan": 155,
+         "Sistan_and_Baluchestan": 1939,
+         "Fars": 1091,
+         "Qazvin": 34,
+         "Qom": 3380,
+         "Kurdistan": 59,
+         "Kerman": 8303,
+         "Kermanshah": 658,
+         "Kohgiluye_and_Boyer-Ahmad": 81,
+         "Golestan": 136,
+         "Gilan": 42,
+         "Lorestan": 135,
+         "Mazandaran": 2042,
+         "Markazi": 708,
+         "Hormozgan": 489,
+         "Hamedan": 1628,
+         "Yazd": 598
+      }
+   ],
+   "Muslim_Female": [
+      {
+         "Azarbaijan_East": 1914484,
+         "Azarbaijan_West": 1599611,
+         "Ardabil": 618412,
+         "Isfahan": 2511996,
+         "Alborz": 1331095,
+         "Ilam": 284305,
+         "Bushehr": 540771,
+         "Tehran": 6550048,
+         "Chaharmahal_and_Bakhtiari": 464173,
+         "Khorasan_South": 378371,
+         "Khorasan_Razavi": 3177592,
+         "Khorasan_North": 428782,
+         "Khuzestan": 2307573,
+         "Zanjan": 521765,
+         "Semnan": 344857,
+         "Sistan_and_Baluchestan": 1368900,
+         "Fars": 2382529,
+         "Qazvin": 622337,
+         "Qom": 630322,
+         "Kurdistan": 789172,
+         "Kerman": 1535843,
+         "Kermanshah": 961854,
+         "Kohgiluye_and_Boyer-Ahmad": 351082,
+         "Golestan": 929059,
+         "Gilan": 1261881,
+         "Lorestan": 866406,
+         "Mazandaran": 1624965,
+         "Markazi": 702075,
+         "Hormozgan": 868125,
+         "Hamedan": 855299,
+         "Yazd": 549294
+      }
+   ],
+   "Christian_Female": [
+      {
+         "Azarbaijan_East": 1953,
+         "Azarbaijan_West": 3665,
+         "Ardabil": 642,
+         "Isfahan": 4073,
+         "Alborz": 1499,
+         "Ilam": 385,
+         "Bushehr": 717,
+         "Tehran": 22291,
+         "Chaharmahal_and_Bakhtiari": 522,
+         "Khorasan_South": 426,
+         "Khorasan_Razavi": 3207,
+         "Khorasan_North": 482,
+         "Khuzestan": 3087,
+         "Zanjan": 465,
+         "Semnan": 333,
+         "Sistan_and_Baluchestan": 1944,
+         "Fars": 2614,
+         "Qazvin": 508,
+         "Qom": 490,
+         "Kurdistan": 830,
+         "Kerman": 1953,
+         "Kermanshah": 1021,
+         "Kohgiluye_and_Boyer-Ahmad": 403,
+         "Golestan": 731,
+         "Gilan": 1008,
+         "Lorestan": 1056,
+         "Mazandaran": 1518,
+         "Markazi": 723,
+         "Hormozgan": 1091,
+         "Hamedan": 914,
+         "Yazd": 532
+      }
+   ],
+   "Jew_Female": [
+      {
+         "Azarbaijan_East": 19,
+         "Azarbaijan_West": 15,
+         "Ardabil": 12,
+         "Isfahan": 463,
+         "Alborz": 33,
+         "Ilam": 3,
+         "Bushehr": 9,
+         "Tehran": 2460,
+         "Chaharmahal_and_Bakhtiari": 5,
+         "Khorasan_South": 6,
+         "Khorasan_Razavi": 51,
+         "Khorasan_North": 5,
+         "Khuzestan": 30,
+         "Zanjan": 0,
+         "Semnan": 5,
+         "Sistan_and_Baluchestan": 23,
+         "Fars": 1372,
+         "Qazvin": 11,
+         "Qom": 5,
+         "Kurdistan": 23,
+         "Kerman": 21,
+         "Kermanshah": 53,
+         "Kohgiluye_and_Boyer-Ahmad": 2,
+         "Golestan": 7,
+         "Gilan": 12,
+         "Lorestan": 14,
+         "Mazandaran": 16,
+         "Markazi": 13,
+         "Hormozgan": 6,
+         "Hamedan": 13,
+         "Yazd": 8
+      }
+   ],
+   "Zoroaster_Female": [
+      {
+         "Azarbaijan_East": 194,
+         "Azarbaijan_West": 200,
+         "Ardabil": 63,
+         "Isfahan": 338,
+         "Alborz": 303,
+         "Ilam": 41,
+         "Bushehr": 61,
+         "Tehran": 4336,
+         "Chaharmahal_and_Bakhtiari": 75,
+         "Khorasan_South": 60,
+         "Khorasan_Razavi": 365,
+         "Khorasan_North": 56,
+         "Khuzestan": 346,
+         "Zanjan": 64,
+         "Semnan": 31,
+         "Sistan_and_Baluchestan": 204,
+         "Fars": 335,
+         "Qazvin": 45,
+         "Qom": 59,
+         "Kurdistan": 99,
+         "Kerman": 577,
+         "Kermanshah": 184,
+         "Kohgiluye_and_Boyer-Ahmad": 43,
+         "Golestan": 58,
+         "Gilan": 58,
+         "Lorestan": 126,
+         "Mazandaran": 138,
+         "Markazi": 105,
+         "Hormozgan": 103,
+         "Hamedan": 141,
+         "Yazd": 1759
+      }
+   ],
+   "Others_Female": [
+      {
+         "Azarbaijan_East": 151,
+         "Azarbaijan_West": 299,
+         "Ardabil": 18,
+         "Isfahan": 3014,
+         "Alborz": 2019,
+         "Ilam": 5,
+         "Bushehr": 137,
+         "Tehran": 4547,
+         "Chaharmahal_and_Bakhtiari": 30,
+         "Khorasan_South": 109,
+         "Khorasan_Razavi": 538,
+         "Khorasan_North": 35,
+         "Khuzestan": 574,
+         "Zanjan": 21,
+         "Semnan": 152,
+         "Sistan_and_Baluchestan": 297,
+         "Fars": 2256,
+         "Qazvin": 334,
+         "Qom": 26,
+         "Kurdistan": 53,
+         "Kerman": 1529,
+         "Kermanshah": 652,
+         "Kohgiluye_and_Boyer-Ahmad": 75,
+         "Golestan": 511,
+         "Gilan": 97,
+         "Lorestan": 31,
+         "Mazandaran": 1038,
+         "Markazi": 189,
+         "Hormozgan": 93,
+         "Hamedan": 141,
+         "Yazd": 372
+      }
+   ],
+   "Unknown_Female": [
+      {
+         "Azarbaijan_East": 3451,
+         "Azarbaijan_West": 3110,
+         "Ardabil": 1018,
+         "Isfahan": 1489,
+         "Alborz": 1116,
+         "Ilam": 220,
+         "Bushehr": 983,
+         "Tehran": 10283,
+         "Chaharmahal_and_Bakhtiari": 602,
+         "Khorasan_South": 9,
+         "Khorasan_Razavi": 7563,
+         "Khorasan_North": 99,
+         "Khuzestan": 10225,
+         "Zanjan": 297,
+         "Semnan": 326,
+         "Sistan_and_Baluchestan": 1715,
+         "Fars": 917,
+         "Qazvin": 27,
+         "Qom": 2841,
+         "Kurdistan": 58,
+         "Kerman": 7107,
+         "Kermanshah": 655,
+         "Kohgiluye_and_Boyer-Ahmad": 61,
+         "Golestan": 126,
+         "Gilan": 43,
+         "Lorestan": 127,
+         "Mazandaran": 1909,
+         "Markazi": 619,
+         "Hormozgan": 183,
+         "Hamedan": 1408,
+         "Yazd": 555
+      }
+   ],
+   "Iran_Male_Nationality": [
+      {
+         "Azarbaijan_East": 1986106,
+         "Azarbaijan_West": 1654486,
+         "Ardabil": 648951,
+         "Isfahan": 2500440,
+         "Alborz": 1329718,
+         "Ilam": 293822,
+         "Bushehr": 599788,
+         "Tehran": 6381433,
+         "Chaharmahal_and_Bakhtiari": 481753,
+         "Khorasan_South": 387269,
+         "Khorasan_Razavi": 3121201,
+         "Khorasan_North": 433421,
+         "Khuzestan": 2373897,
+         "Zanjan": 534571,
+         "Semnan": 337786,
+         "Sistan_and_Baluchestan": 1384025,
+         "Fars": 2398615,
+         "Qazvin": 640592,
+         "Qom": 594183,
+         "Kurdistan": 812458,
+         "Kerman": 1541729,
+         "Kermanshah": 986458,
+         "Kohgiluye_and_Boyer-Ahmad": 360342,
+         "Golestan": 928033,
+         "Gilan": 1267151,
+         "Lorestan": 892586,
+         "Mazandaran": 1650187,
+         "Markazi": 709550,
+         "Hormozgan": 890734,
+         "Hamedan": 879529,
+         "Yazd": 555608
+      }
+   ],
+   "Afghanistan_Male_Nationality": [
+      {
+         "Azarbaijan_East": 76,
+         "Azarbaijan_West": 52,
+         "Ardabil": 15,
+         "Isfahan": 94773,
+         "Alborz": 45548,
+         "Ilam": 12,
+         "Bushehr": 19386,
+         "Tehran": 274780,
+         "Chaharmahal_and_Bakhtiari": 60,
+         "Khorasan_South": 2619,
+         "Khorasan_Razavi": 111396,
+         "Khorasan_North": 55,
+         "Khuzestan": 3671,
+         "Zanjan": 23,
+         "Semnan": 18535,
+         "Sistan_and_Baluchestan": 14163,
+         "Fars": 61198,
+         "Qazvin": 9592,
+         "Qom": 48759,
+         "Kurdistan": 13,
+         "Kerman": 69906,
+         "Kermanshah": 26,
+         "Kohgiluye_and_Boyer-Ahmad": 896,
+         "Golestan": 9602,
+         "Gilan": 218,
+         "Lorestan": 63,
+         "Mazandaran": 1818,
+         "Markazi": 15290,
+         "Hormozgan": 14301,
+         "Hamedan": 135,
+         "Yazd": 28286
+      }
+   ],
+   "Iraq_Male_Nationality": [
+      {
+         "Azarbaijan_East": 27,
+         "Azarbaijan_West": 345,
+         "Ardabil": 7,
+         "Isfahan": 1324,
+         "Alborz": 125,
+         "Ilam": 1020,
+         "Bushehr": 82,
+         "Tehran": 2892,
+         "Chaharmahal_and_Bakhtiari": 4,
+         "Khorasan_South": 9,
+         "Khorasan_Razavi": 3750,
+         "Khorasan_North": 16,
+         "Khuzestan": 2680,
+         "Zanjan": 9,
+         "Semnan": 48,
+         "Sistan_and_Baluchestan": 7,
+         "Fars": 337,
+         "Qazvin": 70,
+         "Qom": 4719,
+         "Kurdistan": 208,
+         "Kerman": 39,
+         "Kermanshah": 435,
+         "Kohgiluye_and_Boyer-Ahmad": 2,
+         "Golestan": 32,
+         "Gilan": 31,
+         "Lorestan": 134,
+         "Mazandaran": 33,
+         "Markazi": 185,
+         "Hormozgan": 59,
+         "Hamedan": 93,
+         "Yazd": 1003
+      }
+   ],
+   "Pakistan_Male_Nationality": [
+      {
+         "Azarbaijan_East": 0,
+         "Azarbaijan_West": 4,
+         "Ardabil": 0,
+         "Isfahan": 176,
+         "Alborz": 78,
+         "Ilam": 0,
+         "Bushehr": 136,
+         "Tehran": 1029,
+         "Chaharmahal_and_Bakhtiari": 2,
+         "Khorasan_South": 3,
+         "Khorasan_Razavi": 947,
+         "Khorasan_North": 2,
+         "Khuzestan": 17,
+         "Zanjan": 1,
+         "Semnan": 13,
+         "Sistan_and_Baluchestan": 1587,
+         "Fars": 53,
+         "Qazvin": 16,
+         "Qom": 3480,
+         "Kurdistan": 0,
+         "Kerman": 73,
+         "Kermanshah": 0,
+         "Kohgiluye_and_Boyer-Ahmad": 0,
+         "Golestan": 9,
+         "Gilan": 2,
+         "Lorestan": 2,
+         "Mazandaran": 13,
+         "Markazi": 19,
+         "Hormozgan": 586,
+         "Hamedan": 2,
+         "Yazd": 77
+      }
+   ],
+   "Turkey_Male_Nationality": [
+      {
+         "Azarbaijan_East": 35,
+         "Azarbaijan_West": 55,
+         "Ardabil": 4,
+         "Isfahan": 7,
+         "Alborz": 12,
+         "Ilam": 0,
+         "Bushehr": 1,
+         "Tehran": 106,
+         "Chaharmahal_and_Bakhtiari": 0,
+         "Khorasan_South": 0,
+         "Khorasan_Razavi": 11,
+         "Khorasan_North": 0,
+         "Khuzestan": 1,
+         "Zanjan": 7,
+         "Semnan": 0,
+         "Sistan_and_Baluchestan": 0,
+         "Fars": 0,
+         "Qazvin": 5,
+         "Qom": 176,
+         "Kurdistan": 0,
+         "Kerman": 2,
+         "Kermanshah": 1,
+         "Kohgiluye_and_Boyer-Ahmad": 0,
+         "Golestan": 1,
+         "Gilan": 0,
+         "Lorestan": 0,
+         "Mazandaran": 0,
+         "Markazi": 1,
+         "Hormozgan": 1,
+         "Hamedan": 2,
+         "Yazd": 1
+      }
+   ],
+   "Other_Countries_Male_Nationality": [
+      {
+         "Azarbaijan_East": 87,
+         "Azarbaijan_West": 35,
+         "Ardabil": 10,
+         "Isfahan": 446,
+         "Alborz": 75,
+         "Ilam": 6,
+         "Bushehr": 202,
+         "Tehran": 1666,
+         "Chaharmahal_and_Bakhtiari": 4,
+         "Khorasan_South": 5,
+         "Khorasan_Razavi": 2703,
+         "Khorasan_North": 3,
+         "Khuzestan": 97,
+         "Zanjan": 128,
+         "Semnan": 34,
+         "Sistan_and_Baluchestan": 136,
+         "Fars": 121,
+         "Qazvin": 45,
+         "Qom": 4594,
+         "Kurdistan": 5,
+         "Kerman": 378,
+         "Kermanshah": 1,
+         "Kohgiluye_and_Boyer-Ahmad": 46,
+         "Golestan": 213,
+         "Gilan": 50,
+         "Lorestan": 1,
+         "Mazandaran": 34,
+         "Markazi": 75,
+         "Hormozgan": 850,
+         "Hamedan": 32,
+         "Yazd": 79
+      }
+   ],
+   "Unknown_Nationality_Male": [
+      {
+         "Azarbaijan_East": 3069,
+         "Azarbaijan_West": 3342,
+         "Ardabil": 1268,
+         "Isfahan": 2311,
+         "Alborz": 779,
+         "Ilam": 339,
+         "Bushehr": 1127,
+         "Tehran": 11766,
+         "Chaharmahal_and_Bakhtiari": 533,
+         "Khorasan_South": 12,
+         "Khorasan_Razavi": 5177,
+         "Khorasan_North": 136,
+         "Khuzestan": 8311,
+         "Zanjan": 110,
+         "Semnan": 240,
+         "Sistan_and_Baluchestan": 2013,
+         "Fars": 927,
+         "Qazvin": 179,
+         "Qom": 2629,
+         "Kurdistan": 92,
+         "Kerman": 5561,
+         "Kermanshah": 1094,
+         "Kohgiluye_and_Boyer-Ahmad": 100,
+         "Golestan": 437,
+         "Gilan": 145,
+         "Lorestan": 103,
+         "Mazandaran": 1913,
+         "Markazi": 631,
+         "Hormozgan": 283,
+         "Hamedan": 525,
+         "Yazd": 959
+      }
+   ],
+   "Iran_Female_Nationality": [
+      {
+         "Azarbaijan_East": 1917645,
+         "Azarbaijan_West": 1603298,
+         "Ardabil": 619027,
+         "Isfahan": 2429672,
+         "Alborz": 1296506,
+         "Ilam": 284005,
+         "Bushehr": 531381,
+         "Tehran": 6338907,
+         "Chaharmahal_and_Bakhtiari": 464941,
+         "Khorasan_South": 376529,
+         "Khorasan_Razavi": 3070719,
+         "Khorasan_North": 429281,
+         "Khuzestan": 2309502,
+         "Zanjan": 522505,
+         "Semnan": 328552,
+         "Sistan_and_Baluchestan": 1357415,
+         "Fars": 2341021,
+         "Qazvin": 614167,
+         "Qom": 573124,
+         "Kurdistan": 789936,
+         "Kerman": 1486591,
+         "Kermanshah": 963186,
+         "Kohgiluye_and_Boyer-Ahmad": 350961,
+         "Golestan": 921165,
+         "Gilan": 1262839,
+         "Lorestan": 867542,
+         "Mazandaran": 1626899,
+         "Markazi": 689110,
+         "Hormozgan": 859141,
+         "Hamedan": 857340,
+         "Yazd": 527493
+      }
+   ],
+   "Afghanistan_Female_Nationality": [
+      {
+         "Azarbaijan_East": 63,
+         "Azarbaijan_West": 55,
+         "Ardabil": 20,
+         "Isfahan": 88351,
+         "Alborz": 38773,
+         "Ilam": 17,
+         "Bushehr": 10305,
+         "Tehran": 240787,
+         "Chaharmahal_and_Bakhtiari": 31,
+         "Khorasan_South": 2426,
+         "Khorasan_Razavi": 108046,
+         "Khorasan_North": 38,
+         "Khuzestan": 2619,
+         "Zanjan": 17,
+         "Semnan": 16874,
+         "Sistan_and_Baluchestan": 12683,
+         "Fars": 48049,
+         "Qazvin": 8809,
+         "Qom": 47608,
+         "Kurdistan": 5,
+         "Kerman": 55505,
+         "Kermanshah": 21,
+         "Kohgiluye_and_Boyer-Ahmad": 607,
+         "Golestan": 8671,
+         "Gilan": 91,
+         "Lorestan": 36,
+         "Mazandaran": 805,
+         "Markazi": 13967,
+         "Hormozgan": 9894,
+         "Hamedan": 82,
+         "Yazd": 23457
+      }
+   ],
+   "Iraq_Female_Nationality": [
+      {
+         "Azarbaijan_East": 8,
+         "Azarbaijan_West": 357,
+         "Ardabil": 7,
+         "Isfahan": 887,
+         "Alborz": 85,
+         "Ilam": 674,
+         "Bushehr": 61,
+         "Tehran": 2073,
+         "Chaharmahal_and_Bakhtiari": 2,
+         "Khorasan_South": 7,
+         "Khorasan_Razavi": 2650,
+         "Khorasan_North": 9,
+         "Khuzestan": 2292,
+         "Zanjan": 8,
+         "Semnan": 23,
+         "Sistan_and_Baluchestan": 7,
+         "Fars": 226,
+         "Qazvin": 42,
+         "Qom": 3646,
+         "Kurdistan": 216,
+         "Kerman": 37,
+         "Kermanshah": 395,
+         "Kohgiluye_and_Boyer-Ahmad": 2,
+         "Golestan": 22,
+         "Gilan": 11,
+         "Lorestan": 92,
+         "Mazandaran": 23,
+         "Markazi": 104,
+         "Hormozgan": 38,
+         "Hamedan": 94,
+         "Yazd": 709
+      }
+   ],
+   "Pakistan_Female_Nationality": [
+      {
+         "Azarbaijan_East": 0,
+         "Azarbaijan_West": 0,
+         "Ardabil": 0,
+         "Isfahan": 120,
+         "Alborz": 39,
+         "Ilam": 0,
+         "Bushehr": 28,
+         "Tehran": 670,
+         "Chaharmahal_and_Bakhtiari": 0,
+         "Khorasan_South": 1,
+         "Khorasan_Razavi": 797,
+         "Khorasan_North": 0,
+         "Khuzestan": 6,
+         "Zanjan": 0,
+         "Semnan": 5,
+         "Sistan_and_Baluchestan": 1030,
+         "Fars": 26,
+         "Qazvin": 6,
+         "Qom": 3063,
+         "Kurdistan": 0,
+         "Kerman": 33,
+         "Kermanshah": 0,
+         "Kohgiluye_and_Boyer-Ahmad": 0,
+         "Golestan": 5,
+         "Gilan": 0,
+         "Lorestan": 1,
+         "Mazandaran": 1,
+         "Markazi": 3,
+         "Hormozgan": 144,
+         "Hamedan": 0,
+         "Yazd": 15
+      }
+   ],
+   "Turkey_Female_Nationality": [
+      {
+         "Azarbaijan_East": 14,
+         "Azarbaijan_West": 28,
+         "Ardabil": 1,
+         "Isfahan": 8,
+         "Alborz": 4,
+         "Ilam": 0,
+         "Bushehr": 0,
+         "Tehran": 48,
+         "Chaharmahal_and_Bakhtiari": 0,
+         "Khorasan_South": 0,
+         "Khorasan_Razavi": 6,
+         "Khorasan_North": 0,
+         "Khuzestan": 0,
+         "Zanjan": 2,
+         "Semnan": 1,
+         "Sistan_and_Baluchestan": 1,
+         "Fars": 1,
+         "Qazvin": 1,
+         "Qom": 164,
+         "Kurdistan": 0,
+         "Kerman": 3,
+         "Kermanshah": 0,
+         "Kohgiluye_and_Boyer-Ahmad": 0,
+         "Golestan": 0,
+         "Gilan": 0,
+         "Lorestan": 0,
+         "Mazandaran": 0,
+         "Markazi": 0,
+         "Hormozgan": 1,
+         "Hamedan": 0,
+         "Yazd": 1
+      }
+   ],
+   "Other_Countries_Female_Nationality": [
+      {
+         "Azarbaijan_East": 32,
+         "Azarbaijan_West": 20,
+         "Ardabil": 10,
+         "Isfahan": 298,
+         "Alborz": 66,
+         "Ilam": 5,
+         "Bushehr": 85,
+         "Tehran": 982,
+         "Chaharmahal_and_Bakhtiari": 3,
+         "Khorasan_South": 5,
+         "Khorasan_Razavi": 2365,
+         "Khorasan_North": 4,
+         "Khuzestan": 49,
+         "Zanjan": 6,
+         "Semnan": 11,
+         "Sistan_and_Baluchestan": 62,
+         "Fars": 87,
+         "Qazvin": 100,
+         "Qom": 3819,
+         "Kurdistan": 3,
+         "Kerman": 130,
+         "Kermanshah": 4,
+         "Kohgiluye_and_Boyer-Ahmad": 6,
+         "Golestan": 227,
+         "Gilan": 22,
+         "Lorestan": 2,
+         "Mazandaran": 22,
+         "Markazi": 6,
+         "Hormozgan": 233,
+         "Hamedan": 4,
+         "Yazd": 15
+      }
+   ],
+   "Unknown_Female_Nationality": [
+      {
+         "Azarbaijan_East": 2490,
+         "Azarbaijan_West": 3142,
+         "Ardabil": 1100,
+         "Isfahan": 2037,
+         "Alborz": 592,
+         "Ilam": 258,
+         "Bushehr": 818,
+         "Tehran": 10498,
+         "Chaharmahal_and_Bakhtiari": 430,
+         "Khorasan_South": 13,
+         "Khorasan_Razavi": 4733,
+         "Khorasan_North": 127,
+         "Khuzestan": 7367,
+         "Zanjan": 74,
+         "Semnan": 238,
+         "Sistan_and_Baluchestan": 1885,
+         "Fars": 613,
+         "Qazvin": 137,
+         "Qom": 2319,
+         "Kurdistan": 75,
+         "Kerman": 4731,
+         "Kermanshah": 813,
+         "Kohgiluye_and_Boyer-Ahmad": 90,
+         "Golestan": 402,
+         "Gilan": 136,
+         "Lorestan": 87,
+         "Mazandaran": 1834,
+         "Markazi": 534,
+         "Hormozgan": 150,
+         "Hamedan": 396,
+         "Yazd": 830
+      }
+   ],
+   "Iranian": [
+      {
+         "Azarbaijan_East": 3903751,
+         "Azarbaijan_West": 3257784,
+         "Ardabil": 1267978,
+         "Isfahan": 4930112,
+         "Alborz": 2626224,
+         "Ilam": 577827,
+         "Bushehr": 1131169,
+         "Tehran": 12720340,
+         "Chaharmahal_and_Bakhtiari": 946694,
+         "Khorasan_South": 763798,
+         "Khorasan_Razavi": 6191920,
+         "Khorasan_North": 862702,
+         "Khuzestan": 4683399,
+         "Zanjan": 1057076,
+         "Semnan": 666338,
+         "Sistan_and_Baluchestan": 2741440,
+         "Fars": 4739636,
+         "Qazvin": 1254759,
+         "Qom": 1167307,
+         "Kurdistan": 1602394,
+         "Kerman": 3028320,
+         "Kermanshah": 1949644,
+         "Kohgiluye_and_Boyer-Ahmad": 711303,
+         "Golestan": 1849198,
+         "Gilan": 2529990,
+         "Lorestan": 1760128,
+         "Mazandaran": 3277086,
+         "Markazi": 1398660,
+         "Hormozgan": 1749875,
+         "Hamedan": 1736869,
+         "Yazd": 1083101
+      }
+   ],
+   "Non_Iranian": [
+      {
+         "Azarbaijan_East": 5901,
+         "Azarbaijan_West": 7435,
+         "Ardabil": 2442,
+         "Isfahan": 190738,
+         "Alborz": 86176,
+         "Ilam": 2331,
+         "Bushehr": 32231,
+         "Tehran": 547297,
+         "Chaharmahal_and_Bakhtiari": 1069,
+         "Khorasan_South": 5100,
+         "Khorasan_Razavi": 242581,
+         "Khorasan_North": 390,
+         "Khuzestan": 27110,
+         "Zanjan": 385,
+         "Semnan": 36022,
+         "Sistan_and_Baluchestan": 33574,
+         "Fars": 111638,
+         "Qazvin": 19002,
+         "Qom": 124976,
+         "Kurdistan": 617,
+         "Kerman": 136398,
+         "Kermanshah": 2790,
+         "Kohgiluye_and_Boyer-Ahmad": 1749,
+         "Golestan": 19621,
+         "Gilan": 706,
+         "Lorestan": 521,
+         "Mazandaran": 6496,
+         "Markazi": 30815,
+         "Hormozgan": 26540,
+         "Hamedan": 1365,
+         "Yazd": 55432
+      }
+   ],
+   "LandLine_Registered": [
+      {
+         "Azarbaijan_East": 1833385,
+         "Azarbaijan_West": 1179388,
+         "Ardabil": 514500,
+         "Isfahan": 2989755,
+         "Alborz": 0,
+         "Ilam": 198789,
+         "Bushehr": 419845,
+         "Tehran": 9436719,
+         "Chaharmahal_and_Bakhtiari": 285651,
+         "Khorasan_South": 342195,
+         "Khorasan_Razavi": 2621318,
+         "Khorasan_North": 297966,
+         "Khuzestan": 1490677,
+         "Zanjan": 419591,
+         "Semnan": 345117,
+         "Sistan_and_Baluchestan": 611392,
+         "Fars": 1911417,
+         "Qazvin": 539369,
+         "Qom": 607802,
+         "Kurdistan": 553160,
+         "Kerman": 917194,
+         "Kermanshah": 666702,
+         "Kohgiluye_and_Boyer-Ahmad": 207505,
+         "Golestan": 713679,
+         "Gilan": 1167458,
+         "Lorestan": 602997,
+         "Mazandaran": 2015032,
+         "Markazi": 675754,
+         "Hormozgan": 618193,
+         "Hamedan": 751740,
+         "Yazd": 659835
+      }
+   ],
+   "LandLine_Working": [
+      {
+         "Azarbaijan_East": 1627801,
+         "Azarbaijan_West": 1091360,
+         "Ardabil": 435741,
+         "Isfahan": 2437975,
+         "Alborz": 0,
+         "Ilam": 150680,
+         "Bushehr": 334758,
+         "Tehran": 8278148,
+         "Chaharmahal_and_Bakhtiari": 267427,
+         "Khorasan_South": 295584,
+         "Khorasan_Razavi": 2308020,
+         "Khorasan_North": 267685,
+         "Khuzestan": 1139316,
+         "Zanjan": 361802,
+         "Semnan": 326309,
+         "Sistan_and_Baluchestan": 509494,
+         "Fars": 1543294,
+         "Qazvin": 440897,
+         "Qom": 508349,
+         "Kurdistan": 526137,
+         "Kerman": 886940,
+         "Kermanshah": 586983,
+         "Kohgiluye_and_Boyer-Ahmad": 145789,
+         "Golestan": 614870,
+         "Gilan": 1117950,
+         "Lorestan": 408056,
+         "Mazandaran": 1612654,
+         "Markazi": 610288,
+         "Hormozgan": 524754,
+         "Hamedan": 610060,
+         "Yazd": 537512
+      }
+   ],
+   "Hamrah_e_Aval_Registered": [
+      {
+         "Azarbaijan_East": 3197693,
+         "Azarbaijan_West": 2783833,
+         "Ardabil": 986867,
+         "Isfahan": 5036234,
+         "Alborz": 2364544,
+         "Ilam": 612295,
+         "Bushehr": 1062371,
+         "Tehran": 11196249,
+         "Chaharmahal_and_Bakhtiari": 978846,
+         "Khorasan_South": 658183,
+         "Khorasan_Razavi": 4276814,
+         "Khorasan_North": 718103,
+         "Khuzestan": 3416095,
+         "Zanjan": 1008981,
+         "Semnan": 759733,
+         "Sistan_and_Baluchestan": 1972462,
+         "Fars": 4542929,
+         "Qazvin": 1125967,
+         "Qom": 1409044,
+         "Kurdistan": 1381055,
+         "Kerman": 2354525,
+         "Kermanshah": 1876854,
+         "Kohgiluye_and_Boyer-Ahmad": 708275,
+         "Golestan": 1348304,
+         "Gilan": 2378128,
+         "Lorestan": 1467459,
+         "Mazandaran": 2487512,
+         "Markazi": 1326685,
+         "Hormozgan": 1446788,
+         "Hamedan": 1527223,
+         "Yazd": 1169878
+      }
+   ],
+   "Hamrah_e_Aval_Working": [
+      {
+         "Azarbaijan_East": 2463396,
+         "Azarbaijan_West": 2020986,
+         "Ardabil": 752641,
+         "Isfahan": 3730917,
+         "Alborz": 0,
+         "Ilam": 443832,
+         "Bushehr": 818990,
+         "Tehran": 9621524,
+         "Chaharmahal_and_Bakhtiari": 639219,
+         "Khorasan_South": 464003,
+         "Khorasan_Razavi": 3244935,
+         "Khorasan_North": 418986,
+         "Khuzestan": 2370095,
+         "Zanjan": 680990,
+         "Semnan": 488840,
+         "Sistan_and_Baluchestan": 1264540,
+         "Fars": 3127798,
+         "Qazvin": 819107,
+         "Qom": 902650,
+         "Kurdistan": 1120254,
+         "Kerman": 1831112,
+         "Kermanshah": 1389435,
+         "Kohgiluye_and_Boyer-Ahmad": 476939,
+         "Golestan": 935746,
+         "Gilan": 1858657,
+         "Lorestan": 1002671,
+         "Mazandaran": 2110763,
+         "Markazi": 982968,
+         "Hormozgan": 1027938,
+         "Hamedan": 1069878,
+         "Yazd": 906415
+      }
+   ],
+   "IranCell_Registered": [
+      {
+         "Azarbaijan_East": 3194639,
+         "Azarbaijan_West": 2294893,
+         "Ardabil": 1152359,
+         "Isfahan": 4909559,
+         "Alborz": 3129638,
+         "Ilam": 452482,
+         "Bushehr": 1337715,
+         "Tehran": 16086645,
+         "Chaharmahal_and_Bakhtiari": 684453,
+         "Khorasan_South": 562341,
+         "Khorasan_Razavi": 5407873,
+         "Khorasan_North": 721615,
+         "Khuzestan": 6049259,
+         "Zanjan": 765536,
+         "Semnan": 869819,
+         "Sistan_and_Baluchestan": 1805708,
+         "Fars": 5944739,
+         "Qazvin": 991466,
+         "Qom": 1105305,
+         "Kurdistan": 1005429,
+         "Kerman": 2303726,
+         "Kermanshah": 1605351,
+         "Kohgiluye_and_Boyer-Ahmad": 727052,
+         "Golestan": 1772548,
+         "Gilan": 2744281,
+         "Lorestan": 1282211,
+         "Mazandaran": 4856727,
+         "Markazi": 1161044,
+         "Hormozgan": 2640086,
+         "Hamedan": 1414897,
+         "Yazd": 708080
+      }
+   ],
+   "IranCell_Working": [
+      {
+         "Azarbaijan_East": 1297337,
+         "Azarbaijan_West": 923750,
+         "Ardabil": 461138,
+         "Isfahan": 2005243,
+         "Alborz": 1299186,
+         "Ilam": 188981,
+         "Bushehr": 556321,
+         "Tehran": 6439214,
+         "Chaharmahal_and_Bakhtiari": 290541,
+         "Khorasan_South": 228652,
+         "Khorasan_Razavi": 2232178,
+         "Khorasan_North": 293383,
+         "Khuzestan": 2443437,
+         "Zanjan": 308416,
+         "Semnan": 354383,
+         "Sistan_and_Baluchestan": 757640,
+         "Fars": 2330544,
+         "Qazvin": 385572,
+         "Qom": 454019,
+         "Kurdistan": 415307,
+         "Kerman": 959146,
+         "Kermanshah": 641058,
+         "Kohgiluye_and_Boyer-Ahmad": 304002,
+         "Golestan": 725862,
+         "Gilan": 1053799,
+         "Lorestan": 530411,
+         "Mazandaran": 1852539,
+         "Markazi": 463158,
+         "Hormozgan": 1064127,
+         "Hamedan": 559862,
+         "Yazd": 301843
+      }
+   ],
+   "RighTel_Registered": [
+      {
+         "Azarbaijan_East": 146355,
+         "Azarbaijan_West": 129186,
+         "Ardabil": 53032,
+         "Isfahan": 474423,
+         "Alborz": 279929,
+         "Ilam": 39095,
+         "Bushehr": 43878,
+         "Tehran": 2254195,
+         "Chaharmahal_and_Bakhtiari": 53116,
+         "Khorasan_South": 19490,
+         "Khorasan_Razavi": 276158,
+         "Khorasan_North": 17863,
+         "Khuzestan": 253217,
+         "Zanjan": 51574,
+         "Semnan": 77430,
+         "Sistan_and_Baluchestan": 186527,
+         "Fars": 341464,
+         "Qazvin": 95870,
+         "Qom": 93172,
+         "Kurdistan": 63963,
+         "Kerman": 276315,
+         "Kermanshah": 148813,
+         "Kohgiluye_and_Boyer-Ahmad": 83268,
+         "Golestan": 110908,
+         "Gilan": 235570,
+         "Lorestan": 72674,
+         "Mazandaran": 200597,
+         "Markazi": 108045,
+         "Hormozgan": 119667,
+         "Hamedan": 83848,
+         "Yazd": 92748
+      }
+   ],
+   "RighTel_Working": [
+      {
+         "Azarbaijan_East": 40101,
+         "Azarbaijan_West": 35397,
+         "Ardabil": 14531,
+         "Isfahan": 129992,
+         "Alborz": 76701,
+         "Ilam": 10712,
+         "Bushehr": 12022,
+         "Tehran": 617649,
+         "Chaharmahal_and_Bakhtiari": 14553,
+         "Khorasan_South": 5340,
+         "Khorasan_Razavi": 75668,
+         "Khorasan_North": 4895,
+         "Khuzestan": 69382,
+         "Zanjan": 14131,
+         "Semnan": 21216,
+         "Sistan_and_Baluchestan": 51109,
+         "Fars": 93561,
+         "Qazvin": 26269,
+         "Qom": 25529,
+         "Kurdistan": 17525,
+         "Kerman": 75711,
+         "Kermanshah": 40775,
+         "Kohgiluye_and_Boyer-Ahmad": 22815,
+         "Golestan": 30389,
+         "Gilan": 64546,
+         "Lorestan": 19912,
+         "Mazandaran": 54963,
+         "Markazi": 29604,
+         "Hormozgan": 32788,
+         "Hamedan": 22974,
+         "Yazd": 25413
+      }
+   ]
+};
+
+var stateFields=[];
+
+stateFields.push(document.getElementById("State1").value);
+stateFields.push(document.getElementById("State2").value);
+stateFields.push(document.getElementById("State3").value);
+console.log(stateFields);
+
+
+                // Handler for dropdown value change
+                function dropdownChange() {
+
+                    d3.selectAll(".bar").remove();
+                    d3.selectAll(".bar2").remove();
+
+                    stateFields=[];
+
+stateFields.push(document.getElementById("State1").value);
+stateFields.push(document.getElementById("State2").value);
+stateFields.push(document.getElementById("State3").value);
+
+                    var newindicator = document.getElementById("indicator").value;
+                    var nextindicator=document.getElementById("indicator2").value;
+                    var newData=[];
+                    var nextData=[];
+    for (i in stateFields){
+                        console.log(datablob[newindicator][0][stateFields[i]]);
+
+                        text='{"'+stateFields[i]+'":"'+datablob[newindicator][0][stateFields[i]]+'"}';
+
+                        newData.push(JSON.parse(text));
+                        
+                    }
+
+
+        for (i in stateFields){
+                        console.log(datablob[nextindicator][0][stateFields[i]]);
+
+                        text='{"'+stateFields[i]+'":"'+datablob[nextindicator][0][stateFields[i]]+'"}';
+
+                        nextData.push(JSON.parse(text));
+                        
+                    }                
+                    console.log(newData);
+                    console.log(nextData);
+                    updateBars(newData,nextData);
+                    var pathArray = window.location.href.split('/');
+                    var value=pathArray[pathArray.length-1];
+                    var tempval='Fars';
+                    d3.select('[value='+tempval).attr('fill','rgb(255,220,0)');
+
+                };
+                // Get names of cereals, for dropdown
+                var datakeys = Object.keys(datablob).sort();
+                console.log(datakeys);
+
+
+
+
+            var nutritionFields = ["Azarbaijan_East", "Azarbaijan_West", "Ardabil", "Isfahan", "Alborz", "Ilam", "Bushehr", "Tehran", "Chaharmahal_and_Bakhtiari", "Khorasan_South", "Khorasan_Razavi", "Khorasan_North", "Khuzestan", "Zanjan", "Semnan", "Sistan_and_Baluchestan", "Fars", "Qazvin", "Qom", "Kurdistan", "Kerman", "Kermanshah", "Kohgiluye_and_Boyer-Ahmad", "Golestan", "Gilan", "Lorestan", "Mazandaran", "Markazi", "Hormozgan", "Hamedan", "Yazd"];
+
+                   var newindicator = document.getElementById("indicator").value;
+                   var nextindicator = document.getElementById("indicator2").value;
+                   console.log(newindicator);
+                    var newData=[];
+                    var nextData=[];
+                    for (i in stateFields){
+                        console.log(datablob[newindicator][0][stateFields[i]]);
+
+                        text='{"'+stateFields[i]+'":"'+datablob[newindicator][0][stateFields[i]]+'"}';
+
+                        newData.push(JSON.parse(text));
+                        
+                    }
+
+                    for (i in stateFields){
+                        console.log(datablob[nextindicator][0][stateFields[i]]);
+
+                        text='{"'+stateFields[i]+'":"'+datablob[nextindicator][0][stateFields[i]]+'"}';
+
+                        nextData.push(JSON.parse(text));
+                        
+                    }
+
+                    console.log(newData);
+
+
+
+
+
+// set the dimensions and margins of the graph
+var margin = {top: 100, right: 20, bottom: 100, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 800 - margin.top - margin.bottom;
+
+                var xScale = d3.scale.ordinal()
+                    .domain(stateFields)
+                    .rangeRoundBands([0, width], 0.1);
+
+                // Make y scale, the domain will be defined on bar update
+                var yScale = d3.scale.linear()
+                    .range([height, 0]);
+          
+// append the svg object to the body of the page
+// append a 'group' element to 'svg'
+// moves the 'group' element to the top left margin
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", 
+          "translate(" + margin.left + "," + margin.top + ")");
+
+
+                    var xAxis = d3.svg.axis()
+                    .scale(xScale)
+                    .orient("bottom");
+
+
+                // Make y-axis and add to canvas
+                var yAxis = d3.svg.axis()
+                    .scale(yScale)
+                    .orient("left");
+
+
+// scale the range of the data
+var max=d3.max(newData, function(d) { return Object.values(d)[0]; });
+
+  xScale.domain(newData.map(function(d) {console.log(Object.keys(d)[0]); return Object.keys(d)[0]; }));
+  yScale.domain([0,max]);
+
+  // add axis
+  svg.append("g")
+      .attr("class", "x-axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .style('stroke-width',1)
+    .selectAll("text")
+      .style("text-anchor", "end")
+      .attr("dx", "-.8em")
+      .attr("dy", "-.55em")
+      .attr("transform", "translate(0,20)" );
+
+  svg.append("g")
+      .attr("class", "y-axis")
+      .call(yAxis)
+      .style('stroke-width',1)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 5)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Count");
+
+
+  // Add bar chart
+  svg.selectAll("bar")
+      .data(newData)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return xScale(Object.keys(d)[0])+(0.25)*xScale.rangeBand(); })
+      .attr("width", xScale.rangeBand()/8)
+      .attr("y", function(d) { return yScale(Object.values(d)[0]); })
+      .attr("height", function(d) { return height - yScale(Object.values(d)[0]); });
+
+svg.selectAll("bar2")
+      .data(nextData)
+    .enter().append("rect")
+      .attr("class", "bar2")
+      .attr("x", function(d) { return xScale(Object.keys(d)[0])+xScale.rangeBand()*0.5; })
+      .attr("width", xScale.rangeBand()/8)
+      .attr("y", function(d) {console.log(Object.values(d)[0]); return yScale(Object.values(d)[0]); })
+      .attr("height", function(d) { return height - yScale(Object.values(d)[0]); });
+
+
+                // Get names of cereals, for dropdown
+                var cereals = Object.keys(datablob).sort();
+                console.log(cereals);
+
+
+            
+
+                var initialData = datablob[ cereals[0] ];
+                console.log(initialData);
+                //updateBars(initialData);
+                                    var pathArray = window.location.href.split('/');
+                    var value=pathArray[pathArray.length-1];
+                    var tempval='Fars';
+                    d3.select('[value='+tempval).attr('fill','rgb(255,220,0)');
+
+                var ticks=d3.selectAll(".text").attr("transform", "rotate(-20)");
+                console.log(ticks);
+                            
+
+function updateBars(newData,nextData){
+
+xScale.domain(newData.map(function(d) {console.log(Object.keys(d)[0]); return Object.keys(d)[0]; }));
+
+var newymax=d3.max(newData, function(d) { return Object.values(d)[0]; });
+var nextymax=d3.max(nextData, function(d) { return Object.values(d)[0]; });
+
+console.log("New YMAX IS");
+console.log(newymax);
+console.log("Next YMAX IS");
+console.log(nextymax);
+
+var absmax=Math.max(newymax,nextymax);
+console.log("Absolute YMAX IS");
+console.log(absmax);
+absmax=absmax+0.25*absmax;
+
+yScale.domain([0, absmax]);
+
+console.log(xScale.domain());
+console.log(yScale.domain());
+
+var xAxis = d3.svg.axis()
+                    .scale(xScale)
+                    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+                    .scale(yScale)
+                    .orient("left");
+
+d3.selectAll(".x-axis").remove();
+d3.selectAll(".y-axis").remove();
+d3.selectAll("text").remove();
+
+
+  // add axis
+  svg.append("g")
+      .attr("class", "x-axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+    .selectAll("text")
+      .style("text-anchor", "end")
+      .attr("dx", "-.8em")
+      .attr("dy", "-.55em")
+      .attr("transform", "translate(0,20)" );
+
+  svg.append("g")
+      .attr("class", "y-axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 5)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Count");
+
+
+   d3.selectAll("bar").remove();
+   d3.selectAll("bar2").remove();
+
+      svg.selectAll("bar")
+      .data(newData)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return xScale(Object.keys(d)[0])+(0.25)*xScale.rangeBand(); })
+      .attr("width", xScale.rangeBand()/8)
+      .attr("y", function(d) {console.log(Object.values(d)[0]); return yScale(Object.values(d)[0]); })
+      .attr("height", function(d) { return height - yScale(Object.values(d)[0]); });
+
+            svg.selectAll("bar2")
+      .data(nextData)
+    .enter().append("rect")
+      .attr("class", "bar2")
+      .attr("x", function(d) { return xScale(Object.keys(d)[0])+xScale.rangeBand()*0.5; })
+      .attr("width", xScale.rangeBand()/8)
+      .attr("y", function(d) {console.log(Object.values(d)[0]); return yScale(Object.values(d)[0]); })
+      .attr("height", function(d) { return height - yScale(Object.values(d)[0]); });
+
+};
+
+
+
+
+        </script>
+    </body>
+</html>
